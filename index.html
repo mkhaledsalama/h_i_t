@@ -1,0 +1,2352 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M&lt;&gt;S | History of Technology — Interactive Study Platform</title>
+  <script>
+(function(){try{var r=localStorage.getItem('ms_history_tech_v1');if(r){var s=JSON.parse(r);if(s.theme)document.documentElement.setAttribute('data-theme',s.theme);if(s.lang){document.documentElement.setAttribute('lang',s.lang);document.documentElement.setAttribute('dir',s.lang==='ar'?'rtl':'ltr');}}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();
+</script>
+  <style>
+/* ==========================================================================
+   M<>S | History of Technology — Theme System (css/themes.css)
+   Warm Cream + Olive Green (Light) | Deep Charcoal + Muted Olive (Dark)
+   Zero Blue, Zero Purple, Zero Neon. Respects reduced motion.
+   ========================================================================== */
+
+:root {
+  --bg-page: #F6F3EC;
+  --bg-surface: #FCFBF8;
+  --bg-beige: #ECE6D9;
+  --text-main: #1F211E;
+  --text-muted: #5F625B;
+  --olive: #4A5D3B;
+  --olive-hover: #3B4B2F;
+  --olive-soft: rgba(74, 93, 59, 0.10);
+  --border: #D8D3C6;
+
+  --ok: #3B5E38;
+  --ok-bg: #E6EFE4;
+  --err: #8E3228;
+  --err-bg: #F6E6E4;
+  --warn: #826222;
+  --warn-bg: #F5EFE0;
+
+  --font-en: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-ar: 'Cairo', 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius: 6px;
+  --shadow: 0 1px 3px rgba(31, 33, 30, 0.06);
+  --nav-h: 64px;
+}
+
+[data-theme="dark"] {
+  --bg-page: #181917;
+  --bg-surface: #232522;
+  --bg-beige: #2C2F2B;
+  --text-main: #F3EFE6;
+  --text-muted: #B3AEA2;
+  --olive: #8FA67B;
+  --olive-hover: #799066;
+  --olive-soft: rgba(143, 166, 123, 0.14);
+  --border: #363934;
+
+  --ok: #8FB88A;
+  --ok-bg: rgba(59, 94, 56, 0.34);
+  --err: #E68F86;
+  --err-bg: rgba(142, 50, 40, 0.30);
+  --warn: #DFBE77;
+  --warn-bg: rgba(130, 98, 34, 0.28);
+
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.32);
+}
+
+[dir="rtl"] body { font-family: var(--font-ar); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   M<>S | History of Technology — Core Editorial Stylesheet (css/style.css)
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; overflow-x: hidden; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: var(--font-en);
+  line-height: 1.62;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+button, input, select { font-family: inherit; font-size: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+svg { max-width: 100%; height: auto; display: block; }
+
+/* Brand Logo M<>S */
+.ms-logo { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.ms-mark {
+  display: inline-flex; align-items: center; gap: 1px;
+  padding: 5px 10px;
+  background-color: #4A5D3B;
+  color: #FCFBF8;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.96rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.ms-mark span { color: #D8D3C6; }
+.ms-sub { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); display: none; }
+
+/* Navigation */
+.topbar {
+  position: sticky; top: 0; z-index: 100; height: var(--nav-h);
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+}
+.topbar-inner {
+  max-width: 1200px; margin: 0 auto; height: 100%; padding: 0 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.nav-links { display: none; align-items: center; gap: 2px; }
+.nav-link {
+  padding: 7px 10px; border-radius: 4px; font-size: 0.86rem; font-weight: 600;
+  color: var(--text-muted); white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.nav-link:hover { background-color: var(--bg-beige); color: var(--text-main); }
+.nav-link.active { background-color: #4A5D3B; color: #FCFBF8; }
+
+.topbar-ctrls { display: flex; align-items: center; gap: 6px; }
+.ctrl-btn {
+  min-height: 36px; padding: 6px 10px; border-radius: 4px;
+  background-color: var(--bg-beige); border: 1px solid var(--border);
+  font-size: 0.82rem; font-weight: 700; color: var(--text-main);
+}
+.ctrl-btn:hover { border-color: var(--olive); }
+
+.mobile-drawer {
+  display: none; background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border); padding: 12px 16px 16px;
+}
+.mobile-drawer.open { display: block; }
+.mobile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.mobile-drawer .nav-link { display: block; border: 1px solid var(--border); padding: 10px 12px; }
+
+/* Main Wrap */
+.container { max-width: 1200px; margin: 0 auto; padding: 20px 16px 68px; width: 100%; }
+.page-head { margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.eyebrow { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--olive); }
+.page-title { margin: 4px 0 6px; font-family: var(--font-serif); font-size: 1.7rem; line-height: 1.25; }
+[dir="rtl"] .page-title { font-family: var(--font-ar); }
+.page-sub { margin: 0; font-size: 0.94rem; color: var(--text-muted); }
+
+/* Cards, Buttons, Badges */
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.card-beige {
+  background-color: var(--bg-beige);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 15px;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 40px; padding: 8px 15px; border-radius: 4px;
+  font-size: 0.88rem; font-weight: 600; border: 1px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+.btn-primary { background-color: #4A5D3B; color: #FCFBF8; border-color: #4A5D3B; }
+.btn-primary:hover { background-color: #3B4B2F; }
+.btn-secondary { background-color: var(--bg-surface); color: var(--text-main); border-color: var(--border); }
+.btn-secondary:hover { background-color: var(--bg-beige); border-color: var(--olive); }
+.btn-danger { background-color: var(--err); color: #FCFBF8; }
+.btn-sm { min-height: 32px; padding: 5px 11px; font-size: 0.82rem; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 4px; font-size: 0.74rem; font-weight: 700; }
+.badge-olive { background-color: var(--ok-bg); color: var(--ok); }
+.badge-err { background-color: var(--err-bg); color: var(--err); }
+.badge-beige { background-color: var(--bg-beige); color: var(--text-muted); border: 1px solid var(--border); }
+
+.input, .select {
+  width: 100%; min-height: 40px; padding: 8px 12px;
+  background-color: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: 4px; color: var(--text-main);
+}
+.input:focus, .select:focus { outline: 2px solid var(--olive); outline-offset: 1px; }
+
+/* Dashboard */
+.hero {
+  background-color: var(--bg-surface); border: 1px solid var(--border);
+  border-inline-start: 4px solid #4A5D3B; border-radius: var(--radius);
+  padding: 22px; margin-bottom: 18px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card { background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; }
+.stat-k { font-size: 0.74rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+.stat-v { font-size: 1.5rem; font-weight: 800; margin-top: 4px; font-variant-numeric: tabular-nums; }
+
+.grid-3 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.grid-2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+.progress-track { width: 100%; height: 8px; background-color: var(--bg-beige); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background-color: #4A5D3B; transition: width 0.3s ease; }
+[data-theme="dark"] .progress-fill { background-color: var(--olive); }
+
+/* Tabs & Study Cards */
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.tab {
+  padding: 7px 12px; border-radius: 4px; background-color: var(--bg-surface);
+  border: 1px solid var(--border); font-size: 0.84rem; font-weight: 600; color: var(--text-muted);
+}
+.tab.active { background-color: #4A5D3B; color: #FCFBF8; border-color: #4A5D3B; }
+
+.qa-card {
+  background-color: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px; margin-bottom: 14px;
+}
+.qa-ans {
+  margin-top: 12px; padding: 14px; background-color: var(--bg-beige);
+  border-inline-start: 3px solid var(--olive); border-radius: 4px;
+  white-space: pre-line; font-size: 0.94rem;
+}
+.qa-ar {
+  margin-top: 10px; padding: 14px; background-color: var(--bg-page);
+  border: 1px solid var(--border); border-radius: 4px;
+  direction: rtl; text-align: right; font-family: var(--font-ar);
+  white-space: pre-line; font-size: 0.94rem;
+}
+
+/* Tables */
+.table-wrap { width: 100%; overflow-x: auto; margin-top: 12px; border: 1px solid var(--border); border-radius: 4px; }
+.table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.table th, .table td { padding: 9px 11px; text-align: start; border-bottom: 1px solid var(--border); }
+.table th { background-color: var(--bg-beige); font-weight: 700; }
+
+/* Flashcards */
+.flash-box {
+  max-width: 680px; margin: 0 auto 16px; min-height: 240px;
+  background-color: var(--bg-surface); border: 1px solid var(--border);
+  border-top: 4px solid #4A5D3B; border-radius: var(--radius);
+  padding: 26px 22px; display: flex; flex-direction: column;
+  justify-content: center; gap: 12px; cursor: pointer;
+}
+
+/* Instant Quiz & Practice Options */
+.opt-list { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+.opt-btn {
+  display: flex; align-items: flex-start; gap: 10px; width: 100%;
+  padding: 13px 14px; text-align: start; background-color: var(--bg-beige);
+  border: 1px solid var(--border); border-radius: 4px; font-size: 0.93rem;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--olive); }
+.opt-btn.ok { border-color: var(--ok); background-color: var(--ok-bg); font-weight: 700; }
+.opt-btn.err { border-color: var(--err); background-color: var(--err-bg); }
+.opt-key {
+  min-width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 4px; background-color: var(--bg-surface); border: 1px solid var(--border);
+  font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
+}
+
+.fb-banner { margin-top: 14px; padding: 13px 15px; border-radius: 4px; border: 1px solid var(--border); font-size: 0.9rem; }
+.fb-banner.ok { background-color: var(--ok-bg); border-color: var(--ok); }
+.fb-banner.err { background-color: var(--err-bg); border-color: var(--err); }
+
+/* Arrange-in-Order & Matching */
+.order-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 11px 14px; background-color: var(--bg-beige); border: 1px solid var(--border);
+  border-radius: 4px; margin-bottom: 8px;
+}
+.order-item.ok { background-color: var(--ok-bg); border-color: var(--ok); }
+.order-item.err { background-color: var(--err-bg); border-color: var(--err); }
+
+.match-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+.match-btn {
+  width: 100%; padding: 11px 12px; text-align: start; background-color: var(--bg-beige);
+  border: 1px solid var(--border); border-radius: 4px; margin-bottom: 8px; font-size: 0.89rem;
+}
+.match-btn.picking { border: 2px solid #4A5D3B; background-color: var(--olive-soft); }
+.match-btn.paired { background-color: var(--bg-surface); border-color: var(--olive); }
+.match-btn.ok { background-color: var(--ok-bg); border-color: var(--ok); }
+.match-btn.err { background-color: var(--err-bg); border-color: var(--err); }
+
+/* Modal & Toast & Empty */
+.modal-bg {
+  position: fixed; inset: 0; background: rgba(24, 25, 23, 0.58);
+  display: none; align-items: center; justify-content: center; padding: 16px; z-index: 200;
+}
+.modal-bg.open { display: flex; }
+.modal-box { background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius); max-width: 440px; width: 100%; padding: 22px; }
+.toast {
+  position: fixed; bottom: 20px; inset-inline-end: 20px; z-index: 300;
+  background-color: #1F211E; color: #FCFBF8; padding: 10px 16px; border-radius: 4px;
+  border-inline-start: 4px solid #8FA67B; font-size: 0.86rem; font-weight: 600;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+}
+.toast.show { opacity: 1; }
+.empty-box { text-align: center; padding: 26px 16px; background-color: var(--bg-beige); border: 1px dashed var(--border); border-radius: var(--radius); color: var(--text-muted); }
+
+.spa-view { display: none; }
+.spa-view.active { display: block; }
+
+/* ==========================================================================
+   M<>S | History of Technology — Responsive Breakpoints (css/responsive.css)
+   ========================================================================== */
+
+@media (min-width: 640px) {
+  .ms-sub { display: inline; }
+  .match-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 768px) {
+  .container { padding: 26px 24px 72px; }
+  .page-title { font-size: 1.95rem; }
+  .hero { flex-direction: row; align-items: center; justify-content: space-between; padding: 26px; }
+  .stats-grid { grid-template-columns: repeat(5, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .nav-links { display: flex; }
+  .mobile-menu-btn, .mobile-drawer { display: none !important; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 390px) {
+  .topbar-inner { padding: 0 10px; gap: 6px; }
+  .ctrl-btn { padding: 5px 8px; font-size: 0.76rem; }
+  .mobile-grid { grid-template-columns: 1fr; }
+  .card, .qa-card { padding: 14px; }
+}
+
+  </style>
+</head>
+<body data-page="home" data-mode="spa">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="ms-logo" href="#" data-nav="home" aria-label="M<>S Home">
+        <span class="ms-mark">M<span>&lt;&gt;</span>S</span>
+        <span class="ms-sub" data-i18n="courseTag">History of Technology</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a class="nav-link active" href="#" data-nav="home" data-i18n="navHome">Dashboard</a>
+        <a class="nav-link" href="#" data-nav="study" data-i18n="navStudy">Study Sections</a>
+        <a class="nav-link" href="#" data-nav="understanding" data-i18n="navUnderstand">Understanding</a>
+        <a class="nav-link" href="#" data-nav="flashcards" data-i18n="navFlashcards">Memorization</a>
+        <a class="nav-link" href="#" data-nav="quiz" data-i18n="navQuiz">Instant Quiz</a>
+        <a class="nav-link" href="#" data-nav="practice" data-i18n="navPractice">Smart Practice</a>
+        <a class="nav-link" href="#" data-nav="revision" data-i18n="navRevision">Quick Revision</a>
+        <a class="nav-link" href="#" data-nav="progress" data-i18n="navProgress">Progress</a>
+      </nav>
+      <div class="topbar-ctrls">
+        <button class="ctrl-btn" id="btn-lang">العربية</button>
+        <button class="ctrl-btn" id="btn-theme">Dark</button>
+        <button class="ctrl-btn mobile-menu-btn" id="btn-mobile" aria-label="Menu">&#9776;</button>
+      </div>
+    </div>
+  </header>
+  <nav class="mobile-drawer" id="mobile-drawer">
+    <div class="mobile-grid"><a class="nav-link active" href="#" data-nav="home" data-i18n="navHome">Dashboard</a>
+        <a class="nav-link" href="#" data-nav="study" data-i18n="navStudy">Study Sections</a>
+        <a class="nav-link" href="#" data-nav="understanding" data-i18n="navUnderstand">Understanding</a>
+        <a class="nav-link" href="#" data-nav="flashcards" data-i18n="navFlashcards">Memorization</a>
+        <a class="nav-link" href="#" data-nav="quiz" data-i18n="navQuiz">Instant Quiz</a>
+        <a class="nav-link" href="#" data-nav="practice" data-i18n="navPractice">Smart Practice</a>
+        <a class="nav-link" href="#" data-nav="revision" data-i18n="navRevision">Quick Revision</a>
+        <a class="nav-link" href="#" data-nav="progress" data-i18n="navProgress">Progress</a></div>
+  </nav>
+  <main class="container">
+    <section id="page-home" class="spa-view active"></section>
+    <section id="page-study" class="spa-view"></section>
+    <section id="page-understanding" class="spa-view"></section>
+    <section id="page-flashcards" class="spa-view"></section>
+    <section id="page-quiz" class="spa-view"></section>
+    <section id="page-practice" class="spa-view"></section>
+    <section id="page-revision" class="spa-view"></section>
+    <section id="page-progress" class="spa-view"></section>
+  </main>
+  <div class="modal-bg" id="reset-modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <h3 style="margin:0 0 8px;" data-i18n="confirmResetTitle">Confirm Progress Reset</h3>
+      <p style="margin:0 0 18px;font-size:0.9rem;color:var(--text-muted);" data-i18n="confirmResetMsg">Clear all saved progress?</p>
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        <button class="btn btn-secondary btn-sm" id="reset-cancel" data-i18n="cancel">Cancel</button>
+        <button class="btn btn-danger btn-sm" id="reset-confirm" data-i18n="confirm">Reset Everything</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="mshot-toast" role="status" aria-live="polite"></div>
+  <script>
+/* ==========================================================================
+   M<>S | History of Technology — LocalStorage Engine (js/storage.js)
+   ========================================================================== */
+
+window.MSHOT_STORAGE = (function () {
+  var KEY = 'ms_history_tech_v1';
+  var mem = null;
+
+  function todayStr() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  function defaults() {
+    var prefersDark = false;
+    try { prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {}
+    return {
+      lang: 'en',
+      theme: prefersDark ? 'dark' : 'light',
+      themeSaved: false,
+      lastSection: 's1',
+      understood: [],      /* array of Q ids */
+      favorites: [],       /* array of Q ids */
+      flashStatus: {},     /* qId -> 'know' | 'practice' | 'review' */
+      quizHistory: [],     /* array of { ts, section, total, correct, wrong, pct } */
+      mistakes: {},        /* qId -> { wrongCount, lastWrong, resolved } */
+      answeredIds: {},     /* qId -> { correct, wrong } */
+      streak: 0,
+      lastDate: ''
+    };
+  }
+
+  function load() {
+    try {
+      var raw = window.localStorage.getItem(KEY);
+      if (!raw) return defaults();
+      return Object.assign(defaults(), JSON.parse(raw));
+    } catch (e) {
+      return mem ? Object.assign(defaults(), mem) : defaults();
+    }
+  }
+
+  function save(st) {
+    mem = st;
+    try { window.localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {}
+  }
+
+  function touchStreak(st) {
+    var t = todayStr();
+    if (st.lastDate === t) return;
+    if (st.lastDate) {
+      var diff = Math.round((new Date(t + 'T00:00:00') - new Date(st.lastDate + 'T00:00:00')) / 86400000);
+      st.streak = diff === 1 ? (st.streak || 0) + 1 : 1;
+    } else {
+      st.streak = 1;
+    }
+    st.lastDate = t;
+  }
+
+  function update(fn) {
+    var st = load();
+    fn(st);
+    save(st);
+    return st;
+  }
+
+  function recordQuizAnswer(qId, isCorrect, chosenText) {
+    return update(function (st) {
+      touchStreak(st);
+      var a = st.answeredIds[qId] || { correct: 0, wrong: 0 };
+      if (isCorrect) {
+        a.correct += 1;
+        if (st.mistakes[qId]) st.mistakes[qId].resolved = true;
+      } else {
+        a.wrong += 1;
+        var m = st.mistakes[qId] || { wrongCount: 0, lastWrong: '', resolved: false };
+        m.wrongCount += 1;
+        m.lastWrong = String(chosenText || '—');
+        m.resolved = false;
+        st.mistakes[qId] = m;
+      }
+      st.answeredIds[qId] = a;
+    });
+  }
+
+  function resetAll() {
+    var d = defaults();
+    save(d);
+    return d;
+  }
+
+  return {
+    KEY: KEY,
+    load: load,
+    save: save,
+    update: update,
+    touchStreak: touchStreak,
+    recordQuizAnswer: recordQuizAnswer,
+    resetAll: resetAll
+  };
+})();
+
+/* ==========================================================================
+   M<>S | History of Technology — Bilingual i18n (js/translations.js)
+   ========================================================================== */
+
+window.MSHOT_I18N = (function () {
+  var T = {
+    en: {
+      courseTag: 'History of Technology',
+      navHome: 'Dashboard',
+      navStudy: 'Study Sections',
+      navUnderstand: 'Understanding',
+      navFlashcards: 'Memorization',
+      navQuiz: 'Instant Quiz',
+      navPractice: 'Smart Practice',
+      navRevision: 'Quick Revision',
+      navProgress: 'Progress',
+      langSwitch: 'العربية',
+      themeDark: 'Dark',
+      themeLight: 'Light',
+      welcomeTitle: 'History of Technology — Midterm Study Platform',
+      welcomeSub: 'Study all 6 sections from your Midterm Q&A Guide, understand concepts in Arabic and English, memorize with randomized flashcards, and test yourself with instant feedback.',
+      continueLearning: 'Continue Learning',
+      quickRevisionBtn: 'Quick Revision Sheet',
+      startQuizBtn: 'Start Instant Quiz',
+      statOverall: 'Overall Progress',
+      statCompleted: 'Understood',
+      statRemaining: 'Remaining',
+      statWrong: 'Needs Review',
+      statStreak: 'Study Streak',
+      days: 'days',
+      allModes: 'Study Modes',
+      sectionsTitle: 'Course Sections (6 Modules)',
+      openSection: 'Study Section',
+      studyTitle: 'Course Content & Study Sections',
+      studySub: 'Every original English Q&A, comparison table, timeline, and Arabic explanation from all 14 pages.',
+      showAnswer: 'Show Answer',
+      hideAnswer: 'Hide Answer',
+      showArabic: 'Show Arabic Explanation',
+      hideArabic: 'Hide Arabic Explanation',
+      markUnderstood: 'Mark Understood',
+      understood: 'Understood',
+      addFav: 'Favorite',
+      favorited: 'Favorited',
+      prevQ: 'Previous',
+      nextQ: 'Next',
+      keyTerms: 'Important Technical Terms',
+      keyPoints: 'Key Points to Memorize',
+      understandTitle: 'Understanding Mode',
+      understandSub: 'Focus on deep comprehension: simplified English answer, Arabic explanation, highlighted keywords, and real examples.',
+      keywordsLabel: 'Key Terms & Keywords',
+      flashTitle: 'Memorization Mode (Flashcards)',
+      flashSub: 'Randomized flashcards with English front/back and on-demand Arabic explanation.',
+      flipCard: 'Flip Card',
+      iKnow: 'I Know This',
+      needPractice: 'Need More Practice',
+      reviewAgain: 'Review Again',
+      shuffleCards: 'Shuffle Deck',
+      repeatDifficult: 'Practice Difficult Only',
+      showAllCards: 'Show All Cards',
+      quizTitle: 'Instant-Feedback Quiz Mode',
+      quizSub: 'Select an answer to get immediate verification, highlighting, and source explanation—no waiting until the end.',
+      selectSection: 'Section',
+      allSections: 'All 6 Sections',
+      numQuestions: 'Number of Questions',
+      startQuiz: 'Start Quiz',
+      correctMsg: 'Correct! Well done.',
+      wrongMsg: 'Not quite — review the correct answer below.',
+      nextQuestion: 'Next Question',
+      seeResults: 'See Final Results',
+      quizComplete: 'Quiz Complete',
+      totalQs: 'Total Questions',
+      correctAns: 'Correct',
+      wrongAns: 'Incorrect',
+      accuracy: 'Accuracy',
+      retryWrong: 'Retry Incorrect Questions',
+      retakeQuiz: 'Retake Quiz',
+      practiceTitle: 'Smart Practice Center',
+      practiceSub: '7 active recall methods built strictly from your History of Technology guide.',
+      pmQa: '1. Q&A Recall',
+      pmMcq: '2. Multiple Choice',
+      pmTf: '3. True or False',
+      pmFill: '4. Fill in the Blank',
+      pmMatch: '5. Match the Terms',
+      pmOrder: '6. Arrange in Order',
+      pmWrong: '7. Wrong Answers',
+      revealAnswer: 'Reveal Answer',
+      checkAnswer: 'Check Answer',
+      nextItem: 'Next Item',
+      validateMatches: 'Validate Matches',
+      resetMatches: 'Reset',
+      checkOrder: 'Check Order',
+      moveUp: 'Up',
+      moveDown: 'Down',
+      revisionTitle: 'Quick Revision Sheet',
+      revisionSub: 'Complete last-minute exam sheet from page 14 plus dates, inventors, abbreviations, comparisons, and sequences.',
+      progressTitle: 'Progress & Performance',
+      progressSub: 'Real statistics tracked locally from your study, memorization, and quiz activity.',
+      mostDifficult: 'Section Performance & Difficult Areas',
+      favQuestions: 'Favorite Questions',
+      needsRevQs: 'Questions Needing Revision',
+      resetProgress: 'Reset All Progress',
+      confirmResetTitle: 'Confirm Progress Reset',
+      confirmResetMsg: 'This will clear all understood marks, favorites, flashcard status, quiz history, and mistakes from this browser. Continue?',
+      cancel: 'Cancel',
+      confirm: 'Reset Everything',
+      emptyHere: 'No items recorded here yet.',
+      typePlaceholder: 'Type the missing term...'
+    },
+    ar: {
+      courseTag: 'تاريخ التكنولوجيا',
+      navHome: 'الرئيسية',
+      navStudy: 'أقسام المنهج',
+      navUnderstand: 'وضع الفهم',
+      navFlashcards: 'بطاقات الحفظ',
+      navQuiz: 'اختبار فوري',
+      navPractice: 'تدريب ذكي',
+      navRevision: 'مراجعة سريعة',
+      navProgress: 'التقدم',
+      langSwitch: 'English',
+      themeDark: 'داكن',
+      themeLight: 'فاتح',
+      welcomeTitle: 'تاريخ التكنولوجيا — منصة المذاكرة التفاعلية',
+      welcomeSub: 'ذاكر الأقسام الستة الكاملة من ملخص الميدتيرم، افهم الشرح بالعربي مع الإجابة الإنجليزية الأصلية، احفظ بالبطاقات العشوائية، واختبر نفسك بتصحيح فوري.',
+      continueLearning: 'متابعة المذاكرة',
+      quickRevisionBtn: 'ورقة المراجعة السريعة',
+      startQuizBtn: 'ابدأ اختباراً فورياً',
+      statOverall: 'التقدم الكلي',
+      statCompleted: 'تم فهمها',
+      statRemaining: 'متبقية',
+      statWrong: 'تحتاج مراجعة',
+      statStreak: 'سلسلة المذاكرة',
+      days: 'يوم',
+      allModes: 'أوضاع المذاكرة',
+      sectionsTitle: 'أقسام المنهج (6 وحدات)',
+      openSection: 'افتح القسم',
+      studyTitle: 'محتوى المنهج والأقسام الدراسية',
+      studySub: 'جميع الأسئلة والإجابات الإنجليزية الأصلية وجداول المقارنة والشرح بالعربي من صفحات الملخص الـ 14.',
+      showAnswer: 'إظهار الإجابة',
+      hideAnswer: 'إخفاء الإجابة',
+      showArabic: 'إظهار الشرح بالعربي',
+      hideArabic: 'إخفاء الشرح بالعربي',
+      markUnderstood: 'تم الفهم',
+      understood: 'مفهوم',
+      addFav: 'مفضلة',
+      favorited: 'في المفضلة',
+      prevQ: 'السابق',
+      nextQ: 'التالي',
+      keyTerms: 'مصطلحات تقنية مهمة',
+      keyPoints: 'نقاط أساسية للحفظ',
+      understandTitle: 'وضع الفهم العميق',
+      understandSub: 'ركّز على فهم المفهوم: الإجابة الإنجليزية المبسطة، الشرح بالعربي، الكلمات المفتاحية، وأمثلة المنهج.',
+      keywordsLabel: 'الكلمات المفتاحية والمصطلحات',
+      flashTitle: 'وضع الحفظ (البطاقات التعليمية)',
+      flashSub: 'بطاقات عشوائية: السؤال الإنجليزي في الأمام، الإجابة في الخلف، والشرح العربي بزر مستقل.',
+      flipCard: 'اقلب البطاقة',
+      iKnow: 'أعرفها جيداً',
+      needPractice: 'تحتاج تدريباً',
+      reviewAgain: 'أعد مراجعتها',
+      shuffleCards: 'خلط البطاقات',
+      repeatDifficult: 'البطاقات الصعبة فقط',
+      showAllCards: 'عرض كل البطاقات',
+      quizTitle: 'وضع الاختبار بالتصحيح الفوري',
+      quizSub: 'اختر إجابتك لتحصل على التصحيح والشرح فوراً دون الانتظار حتى نهاية الاختبار.',
+      selectSection: 'القسم',
+      allSections: 'جميع الأقسام الستة',
+      numQuestions: 'عدد الأسئلة',
+      startQuiz: 'بدء الاختبار',
+      correctMsg: 'إجابة صحيحة! أحسنت.',
+      wrongMsg: 'إجابة غير صحيحة — راجع الإجابة الصحيحة بالأسفل.',
+      nextQuestion: 'السؤال التالي',
+      seeResults: 'عرض النتيجة النهائية',
+      quizComplete: 'اكتمل الاختبار',
+      totalQs: 'إجمالي الأسئلة',
+      correctAns: 'صحيحة',
+      wrongAns: 'خاطئة',
+      accuracy: 'نسبة الدقة',
+      retryWrong: 'إعادة الأسئلة الخاطئة',
+      retakeQuiz: 'إعادة الاختبار',
+      practiceTitle: 'مركز التدريب الذكي',
+      practiceSub: '7 أساليب تدريب تفاعلية مبنية بدقة على ملخص تاريخ التكنولوجيا.',
+      pmQa: '1. تذكّر الإجابة',
+      pmMcq: '2. اختيار من متعدد',
+      pmTf: '3. صح أو خطأ',
+      pmFill: '4. أكمل الفراغ',
+      pmMatch: '5. وصّل المصطلحات',
+      pmOrder: '6. رتّب المراحل',
+      pmWrong: '7. مراجعة الأخطاء',
+      revealAnswer: 'كشف الإجابة',
+      checkAnswer: 'تحقق من الإجابة',
+      nextItem: 'التالي',
+      validateMatches: 'تحقق من التوصيل',
+      resetMatches: 'إعادة التوصيل',
+      checkOrder: 'تحقق من الترتيب',
+      moveUp: 'أعلى',
+      moveDown: 'أسفل',
+      revisionTitle: 'ورقة المراجعة السريعة قبل الامتحان',
+      revisionSub: 'ملخص صفحة 14 الكامل مع أهم التواريخ والمخترعين والاختصارات والمقارنات والترتيبات.',
+      progressTitle: 'التقدم والأداء الدراسي',
+      progressSub: 'إحصاءات حقيقية محفوظة محلياً بناءً على مذاكرتك واختباراتك الفعلية.',
+      mostDifficult: 'الأداء حسب القسم والأقسام الأصعب',
+      favQuestions: 'الأسئلة المفضلة',
+      needsRevQs: 'أسئلة تحتاج مراجعة',
+      resetProgress: 'إعادة تعيين كل التقدم',
+      confirmResetTitle: 'تأكيد حذف التقدم',
+      confirmResetMsg: 'سيؤدي هذا لمسح جميع علامات الفهم والمفضلة وحالة البطاقات وسجل الاختبارات والأخطاء. هل تريد المتابعة؟',
+      cancel: 'إلغاء',
+      confirm: 'تأكيد المسح',
+      emptyHere: 'لا توجد عناصر مسجلة هنا بعد.',
+      typePlaceholder: 'اكتب المصطلح الناقص...'
+    }
+  };
+
+  function getLang() { return window.MSHOT_STORAGE.load().lang || 'en'; }
+  function t(k) { var l = getLang(); return (T[l] && T[l][k]) || T.en[k] || k; }
+  function apply(l) { document.documentElement.setAttribute('lang', l); document.documentElement.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr'); }
+  function toggle() { var n = getLang() === 'en' ? 'ar' : 'en'; window.MSHOT_STORAGE.update(function (s) { s.lang = n; }); apply(n); return n; }
+
+  return { getLang: getLang, t: t, apply: apply, toggle: toggle };
+})();
+
+/* ==========================================================================
+   M<>S | History of Technology — Complete 14-Page PDF Knowledge Base (js/data.js)
+   Primary Source: History_of_Technology_Midterm_Guide.pdf (14 pages)
+   Contains:
+   - All 6 Sections + Introductions + Terms + Key Points
+   - All 31 Original Q&A Items (verbatim English + Arabic explanation + tables)
+   - Verified MCQ, True/False, Fill-in-Blank, Matching, & Arrange-in-Order Banks
+   - Original Quick Revision Sheet (p. 14) + Dates, Inventors, Abbreviations
+   ========================================================================== */
+
+window.MSHOT_DATA = {
+  sections: [
+    {
+      id: 's1', num: '01', diagram: 'it-ages',
+      titleEn: 'Information Technology (IT)',
+      titleAr: 'تكنولوجيا المعلومات (IT)',
+      introEn: 'Covers the definition and 5 stages of IT, its 5 main components, the 4 historical ages of IT development, pioneering inventors, and the 5 generations of computers.',
+      introAr: 'يغطي تعريف تكنولوجيا المعلومات ومراحلها الخمس، مكوناتها الخمسة الرئيسية، العصور الأربعة لتطورها، أبرز المخترعين، وأجيال الكمبيوتر الخمسة.',
+      terms: ['Input / Process / Store / Transmit / Retrieve', 'Hardware & Software', 'Abacus', 'Gutenberg Printing Press (1450)', 'Pascaline (1642)', 'Babbage Analytical Engine', 'Ada Lovelace', 'ENIAC (1946)', 'Vacuum Tubes -> Transistors -> IC -> Microprocessors -> AI'],
+      keyPointsEn: ['IT handles information in 5 steps: input, process, store, transmit, retrieve.', '4 Ages: Premechanical -> Mechanical -> Electromechanical -> Electronic.', 'Charles Babbage = Father of the Computer; Ada Lovelace = First Programmer.'],
+      keyPointsAr: ['تتعامل الـ IT مع المعلومة في 5 مراحل: إدخال، معالجة، تخزين، إرسال، استرجاع.', 'حيلة الحفظ: بدائي ← ميكانيكي ← كهرباء+ميكانيكا ← إلكتروني.', 'تشارلز باباج "أبو الكمبيوتر" وآدا لوفليس "أول مبرمجة في التاريخ".']
+    },
+    {
+      id: 's2', num: '02', diagram: 'storage-evo',
+      titleEn: 'Stages of Storage Media',
+      titleAr: 'مراحل تطور وسائل التخزين',
+      introEn: 'Explains non-volatile storage media, the 8 historical stages from Punch Cards (1890) to Cloud Storage, the 4 storage technologies, HDD vs. SSD comparison, and floppy disk sizes.',
+      introAr: 'يشرح وسائل التخزين الدائم (غير المتطاير)، والمراحل الثمانية من الكروت المثقوبة (1890) حتى التخزين السحابي، وأنواع التقنيات، والمقارنة بين HDD و SSD وأحجام الفلوبي.',
+      terms: ['Non-volatile vs. RAM', 'Punch Cards (1890, Hollerith)', 'Magnetic Tape (1951, Sequential)', 'IBM RAMAC (1956, 5 MB, Random Access)', 'Floppy Disk (8", 5.25", 3.5" 1.44 MB)', 'CD (700 MB) / DVD (4.7 GB) / Blu-ray (25 GB)', 'SSD vs. HDD', 'Cloud Storage'],
+      keyPointsEn: ['With every stage: larger capacity, smaller size, higher speed.', 'Magnetic Tape = sequential access; HDD = random access.', 'SSD has no moving parts -> faster, silent, lower power, more expensive per GB.'],
+      keyPointsAr: ['المبدأ العام: مع كل مرحلة السعة بتزيد، الحجم بيصغر، والسرعة بتتحسن.', 'الشريط الممغنط قراءة متسلسلة (Sequential)، والهارد وصول عشوائي مباشر (Random access).', 'الـ SSD بدون أجزاء متحركة فأسرع وهادي وأمتن لكن أغلى.']
+    },
+    {
+      id: 's3', num: '03', diagram: 'hdd-parts',
+      titleEn: 'Hard Disk Drive (HDD) Components',
+      titleAr: 'مكونات القرص الصلب (HDD)',
+      introEn: 'Details how a magnetic hard disk drive works, its 8 internal and external components, data organization (Track, Sector, Cylinder), and interface connection types.',
+      introAr: 'يشرح كيفية عمل القرص الصلب المغناطيسي، مكوناته الثمانية الداخلية والخارجية، طريقة تنظيم البيانات (Track, Sector, Cylinder)، وأنواع كابلات التوصيل.',
+      terms: ['Platters', 'Spindle (5400 / 7200 RPM)', 'Read/Write Heads', 'Actuator Arm & Actuator (Voice Coil)', 'Controller (Logic) Board', 'Track / Sector (512 bytes) / Cylinder', 'IDE/PATA, SCSI, SATA'],
+      keyPointsEn: ['Top 4 parts to memorize: Platters, Spindle, Read/Write Heads, Actuator Arm.', 'Heads float over platters without touching them and magnetize tiny areas (0 or 1).', 'SATA is modern, thin, and faster than old wide-ribbon IDE/PATA.'],
+      keyPointsAr: ['أهم 4 أجزاء تحفظها: Platters, Spindle, Heads, Actuator Arm.', 'الإبرة (Head) تتحرك فوق الأقراص دون لمسها وتغير المغناطيسية للكتابة أو تحس بها للقراءة.', 'SATA حديث وأرفع وأسرع من IDE القديم العريض.']
+    },
+    {
+      id: 's4', num: '04', diagram: 'monitors-evo',
+      titleEn: 'Monitors (Display Screens)',
+      titleAr: 'الشاشات (Monitors)',
+      introEn: 'Covers monitor definitions, evolution from CRT to OLED and Modern 4K/8K displays, technology pros/cons (including Plasma), LCD panel types (TN, IPS, VA), and historical display standards (MDA to SVGA/XGA).',
+      introAr: 'يتناول تعريف الشاشة وتطورها من CRT حتى OLED والشاشات الحديثة، ومزايا وعيوب كل تقنية، وأنواع ألواح LCD (TN, IPS, VA)، وتطور معايير العرض القديمة (MDA حتى SVGA).',
+      terms: ['CRT (Cathode Ray Tube)', 'LCD (Liquid Crystal Display)', 'LED Backlight', 'Plasma', 'OLED (True Black)', 'TN (Speed) / IPS (Colors) / VA (Contrast)', 'MDA -> CGA -> EGA -> VGA -> SVGA/XGA', 'HD / Full HD / 4K / 8K'],
+      keyPointsEn: ['Trend: heavy & bulky (CRT) -> thin, light, energy efficient (LCD/LED/OLED).', 'LCD Panels trick: TN = speed, IPS = colors & viewing angles, VA = contrast & deep black.', 'Old display standards order: MDA (1981) -> CGA (1981) -> EGA (1984) -> VGA (1987) -> SVGA/XGA (1990s).'],
+      keyPointsAr: ['الاتجاه: من الثقيل الكبير إلى الرفيع والخفيف، والـ OLED كل بكسل ينور لوحده فأسوده حقيقي.', 'حيلة ألواح LCD: TN = سرعة، IPS = ألوان، VA = تباين.', 'ترتيب المعايير القديمة: MDA ← CGA ← EGA ← VGA ← SVGA.']
+    },
+    {
+      id: 's5', num: '05', diagram: 'mobo-layout',
+      titleEn: 'Motherboards',
+      titleAr: 'اللوحة الأم (Motherboards)',
+      introEn: 'Explains the main circuit board of a computer, its 7 core component groups, the 7 historical form factor stages from IBM PC/XT to Mini-ITX, and current motherboard types.',
+      introAr: 'يشرح اللوحة الأم باعتبارها اللوحة الرئيسية في الكمبيوتر، ومكوناتها الأساسية السبعة، ومراحل تطور مقاساتها (Form Factors) من XT حتى Mini-ITX، وأنواعها الحالية.',
+      terms: ['CPU Socket', 'RAM Slots', 'Chipset (Northbridge & Southbridge)', 'BIOS/CMOS Chip & Battery', 'Expansion Slots (ISA, PCI, AGP, PCIe)', 'Form Factors: XT -> AT -> Baby AT -> LPX/NLX -> ATX (1995) -> Micro ATX -> Mini-ITX (2001)', 'E-ATX'],
+      keyPointsEn: ['ATX (1995 by Intel, 305x244 mm) became the modern standard.', 'BIOS/CMOS starts the computer and the CMOS battery keeps settings and clock.', 'Sequence: XT -> AT -> Baby AT -> LPX/NLX -> ATX -> Micro ATX -> Mini-ITX.'],
+      keyPointsAr: ['معيار ATX من Intel سنة 1995 غيّر كل شيء وأصبح المعيار الحديث.', 'شريحة BIOS تشغّل الجهاز أول ما نفتحه والبطارية تحفظ الساعة والإعدادات.', 'الترتيب: XT ← AT ← Baby AT ← ATX ← Micro ATX ← Mini-ITX.']
+    },
+    {
+      id: 's6', num: '06', diagram: 'os-evo',
+      titleEn: 'Operating Systems (OS)',
+      titleAr: 'أنظمة التشغيل (Operating Systems)',
+      introEn: 'Covers what an OS is, its 5 core functions, the 6 historical stages of OS evolution, CLI vs. GUI comparison, 6 OS types (including RTOS and Embedded), and popular OS examples.',
+      introAr: 'يشرح تعريف نظام التشغيل ووظائفه الخمس الرئيسية، المراحل الست لتطور أنظمة التشغيل، الفرق بين CLI و GUI، وأنواع أنظمة التشغيل الستة وأشهر الأمثلة.',
+      terms: ['System Software', 'Process / Memory / File / Device / Security Management', 'No OS -> Batch -> Multiprogramming & Time-Sharing (UNIX 1969) -> PC OS -> GUI/Network -> Modern/Mobile', 'CLI vs. GUI', 'RTOS (Real-Time OS)', 'Embedded OS'],
+      keyPointsEn: ['Direction of OS evolution: Command Line (CLI) -> Graphical User Interface (GUI).', 'Key dates: UNIX (1969), MS-DOS (1981), Mac OS (1984), Windows 1.0 (1985), Linux (1991), iOS (2007), Android (2008).', 'RTOS responds within a strict time (airplanes, medical devices).'],
+      keyPointsAr: ['الاتجاه: من Command Line (كتابة أوامر) ← إلى GUI (واجهة رسومية سهلة).', 'أهم التواريخ: UNIX 1969، MS-DOS 1981، Mac OS 1984، Windows 1.0 1985، Linux 1991، iOS 2007، Android 2008.', 'نظام Real-Time (RTOS) يضمن استجابة فورية صارمة للطائرات والأجهزة الطبية.']
+    }
+  ],
+
+  /* ==================== ALL 31 ORIGINAL Q&A ITEMS FROM PDF (pp. 1–13) ==================== */
+  qa: [
+    /* SECTION 1 (5) */
+    {
+      id: 's1-q1', section: 's1', page: 'p. 1', difficulty: 'easy',
+      question_en: 'What is Information Technology (IT)?',
+      question_ar: 'ما هي تكنولوجيا المعلومات (IT)؟',
+      answer_en: 'Information Technology (IT) is the use of computers, networks, software and other devices to input, process, store, transmit and retrieve information.',
+      explanation_ar: 'الـ IT معناه استخدام الكمبيوتر والشبكات والبرامج عشان نتعامل مع المعلومات. المعلومة بتعدّي بخمس مراحل: ندخلها (input)، نعالجها (process)، نخزنها (store)، نبعتها (transmit)، ونرجع نجيبها وقت ما نحتاجها (retrieve). مثال: لما بتصوري صورة وتخزنيها وتبعتيها على واتساب، إنتي بتستخدمي IT.',
+      keywords: ['input', 'process', 'store', 'transmit', 'retrieve']
+    },
+    {
+      id: 's1-q2', section: 's1', page: 'p. 1', difficulty: 'easy',
+      question_en: 'What are the main components of IT?',
+      question_ar: 'ما هي المكونات الرئيسية لتكنولوجيا المعلومات؟',
+      answer_en: '• Hardware: physical parts (CPU, monitor, keyboard).\n• Software: programs and operating systems.\n• Data: raw facts and information.\n• Networks: connect computers (Internet).\n• People: the users and IT specialists.',
+      explanation_ar: '• الـ Hardware: الأجزاء اللي بتتلمس زي الشاشة والكيبورد.\n• الـ Software: البرامج اللي بتشغل الجهاز.\n• الـ Data: البيانات والمعلومات.\n• الـ Networks: الشبكات اللي بتوصل الأجهزة ببعض.\n• الـ People: الناس اللي بتستخدم وتدير النظام.',
+      keywords: ['Hardware', 'Software', 'Data', 'Networks', 'People']
+    },
+    {
+      id: 's1-q3', section: 's1', page: 'p. 2', difficulty: 'medium',
+      question_en: 'What are the four ages of IT development?',
+      question_ar: 'ما هي العصور الأربعة لتطور تكنولوجيا المعلومات؟',
+      answer_en: '1. Premechanical (3000 BC – 1450 AD): Writing (pictographs, cuneiform), alphabets, paper and papyrus, numbers, Abacus.\n2. Mechanical (1450 – 1840): Gutenberg printing press (1450), slide rule, Pascaline (Pascal), Leibniz calculator, Babbage Analytical Engine.\n3. Electromechanical (1840 – 1940): Telegraph (Morse), telephone (Bell), radio (Marconi), Hollerith tabulating machine, Mark I.\n4. Electronic (1940 – present): ENIAC (first electronic computer), transistor, integrated circuit, microprocessor, PC, Internet, smartphones.',
+      explanation_ar: 'التاريخ مقسوم 4 عصور حسب نوع التكنولوجيا المستخدمة:\n• Premechanical: الإنسان بدأ يكتب ويعد (على الحجر والبردي) وظهر العداد Abacus. مفيش آلات.\n• Mechanical: ظهرت آلات بتشتغل بالتروس والعجلات (من غير كهربا) زي آلة باسكال الحاسبة، والطباعة لـ Gutenberg غيرت نشر المعلومات.\n• Electromechanical: دخلت الكهربا مع الحركة الميكانيكية، زي التلغراف والتليفون والراديو.\n• Electronic: العصر الحالي، الكمبيوتر الإلكتروني بدأ بـ ENIAC وبعدها الإنترنت والموبايل.\nحيلة الحفظ: بدائي ← ميكانيكي ← كهرباء+ميكانيكا ← إلكتروني.',
+      table: {
+        headers: ['Age', 'Period', 'Main inventions'],
+        rows: [
+          ['1. Premechanical', '3000 BC – 1450 AD', 'Writing (pictographs, cuneiform), alphabets, paper and papyrus, numbers, Abacus'],
+          ['2. Mechanical', '1450 – 1840', 'Gutenberg printing press (1450), slide rule, Pascaline (Pascal), Leibniz calculator, Babbage Analytical Engine'],
+          ['3. Electromechanical', '1840 – 1940', 'Telegraph (Morse), telephone (Bell), radio (Marconi), Hollerith tabulating machine, Mark I'],
+          ['4. Electronic', '1940 – present', 'ENIAC (first electronic computer), transistor, integrated circuit, microprocessor, PC, Internet, smartphones']
+        ]
+      },
+      keywords: ['Premechanical', 'Mechanical', 'Electromechanical', 'Electronic', 'ENIAC']
+    },
+    {
+      id: 's1-q4', section: 's1', page: 'p. 2', difficulty: 'medium',
+      question_en: 'Name the first inventor/invention in each age (common exam question).',
+      question_ar: 'اذكر أول مخترع/اختراع في كل عصر (سؤال امتحان شائع).',
+      answer_en: '• Premechanical: Abacus.\n• Mechanical: Gutenberg printing press (1450) / Pascaline (Blaise Pascal, 1642).\n• Electromechanical: Telegraph (Samuel Morse) and Telephone (Alexander Graham Bell, 1876).\n• Electronic: ENIAC (1946).',
+      explanation_ar: 'لو الدكتور سأل مين اخترع إيه: العداد للأول، الطباعة وآلة باسكال للتاني، التلغراف (Morse) والتليفون (Bell) للتالت، وENIAC للرابع. وكمان Charles Babbage بيتسمى "أبو الكمبيوتر" لأنه صمم الـ Analytical Engine، وAda Lovelace أول مبرمجة في التاريخ.',
+      keywords: ['Abacus', 'Gutenberg (1450)', 'Pascaline (1642)', 'Morse', 'Bell (1876)', 'ENIAC (1946)', 'Charles Babbage', 'Ada Lovelace']
+    },
+    {
+      id: 's1-q5', section: 's1', page: 'p. 3', difficulty: 'medium',
+      question_en: 'What are the five generations of computers? (bonus)',
+      question_ar: 'ما هي الأجيال الخمسة لأجهزة الكمبيوتر؟',
+      answer_en: '1st (1940–1956): Vacuum tubes | 2nd (1956–1963): Transistors | 3rd (1964–1971): Integrated Circuits (IC) | 4th (1971–present): Microprocessors | 5th (Present and beyond): Artificial Intelligence (AI).',
+      explanation_ar: 'أجيال الكمبيوتر بتتحدد بالمكون الأساسي جواه. كل جيل بيبقى أصغر وأسرع وأرخص وأقل استهلاك للكهربا من اللي قبله. الجيل الأول كان بحجم أوضة بالصمامات (Vacuum tubes)، والحالي بالمعالجات الصغيرة (Microprocessors).',
+      table: {
+        headers: ['Generation', 'Period', 'Technology'],
+        rows: [
+          ['1st', '1940 – 1956', 'Vacuum tubes'],
+          ['2nd', '1956 – 1963', 'Transistors'],
+          ['3rd', '1964 – 1971', 'Integrated Circuits (IC)'],
+          ['4th', '1971 – present', 'Microprocessors'],
+          ['5th', 'Present and beyond', 'Artificial Intelligence (AI)']
+        ]
+      },
+      keywords: ['Vacuum tubes', 'Transistors', 'Integrated Circuits (IC)', 'Microprocessors', 'Artificial Intelligence (AI)']
+    },
+
+    /* SECTION 2 (5) */
+    {
+      id: 's2-q1', section: 's2', page: 'p. 3', difficulty: 'easy',
+      question_en: 'What is storage media?',
+      question_ar: 'ما هي وسائل التخزين (Storage Media)؟',
+      answer_en: 'Storage media are devices or materials used to save data permanently (non-volatile) so it can be used later, even after the power is turned off.',
+      explanation_ar: 'وسائل التخزين هي أي حاجة بنحفظ عليها بياناتنا بشكل دائم، بحيث لما نقفل الجهاز البيانات متضيعش. عكس الـ RAM اللي بتتمسح لما الكهربا تقطع.',
+      keywords: ['permanently', 'non-volatile', 'RAM']
+    },
+    {
+      id: 's2-q2', section: 's2', page: 'p. 4', difficulty: 'hard',
+      question_en: 'Arrange the stages of storage media evolution.',
+      question_ar: 'رتّب مراحل تطور وسائل التخزين.',
+      answer_en: '1. Punch Cards (1890, Hollerith) -> 2. Magnetic Tape (1951) -> 3. Hard Disk / HDD (1956, IBM RAMAC, 5 MB) -> 4. Floppy Disk (1971) -> 5. Optical Discs (1982 on: CD 700 MB, DVD 4.7 GB, Blu-ray 25 GB) -> 6. Flash / USB / Memory Cards (2000 on) -> 7. SSD (2000s on) -> 8. Cloud Storage (2000s on).',
+      explanation_ar: 'المبدأ العام: مع كل مرحلة السعة بتزيد، الحجم بيصغر، والسرعة بتتحسن. الكروت المثقوبة بدائية (80 حرف)؛ الشريط الممغنط قراءة متسلسلة (Sequential)؛ الهارد أول وصول عشوائي مباشر (Random access)؛ الفلوبي سعتها قليلة (1.44 MB)؛ الأقراص الضوئية بالليزر؛ الفلاش والـ SSD بدون أجزاء متحركة؛ والسحابة على الإنترنت.',
+      table: {
+        headers: ['#', 'Storage', 'Approx. date', 'Key facts'],
+        rows: [
+          ['1', 'Punch Cards', '1890 (Hollerith)', 'Holes represent data; about 80 characters per card'],
+          ['2', 'Magnetic Tape', '1951', 'Plastic tape coated with magnetic material; sequential access; cheap, used for backup'],
+          ['3', 'Hard Disk (HDD)', '1956 (IBM RAMAC)', 'First HDD stored 5 MB; random access'],
+          ['4', 'Floppy Disk', '1971', '8" then 5.25" then 3.5" (1.44 MB)'],
+          ['5', 'Optical Discs', '1982 on', 'CD (700 MB) then DVD (4.7 GB) then Blu-ray (25 GB); read by laser'],
+          ['6', 'Flash / USB / Memory Cards', '2000 on', 'No moving parts, portable'],
+          ['7', 'SSD', '2000s on', 'Flash-based, very fast, no moving parts'],
+          ['8', 'Cloud Storage', '2000s on', 'Data stored on internet servers (Google Drive, iCloud)']
+        ]
+      },
+      keywords: ['Punch Cards', 'Magnetic Tape', 'IBM RAMAC', 'Floppy Disk', 'Optical Discs', 'USB Flash', 'SSD', 'Cloud Storage']
+    },
+    {
+      id: 's2-q3', section: 's2', page: 'p. 4', difficulty: 'easy',
+      question_en: 'What are the types of storage technology?',
+      question_ar: 'ما هي أنواع تكنولوجيا التخزين؟',
+      answer_en: '• Magnetic: tape, floppy disk, hard disk.\n• Optical: CD, DVD, Blu-ray (laser).\n• Solid-state (flash): USB flash drive, memory card, SSD (no moving parts).\n• Cloud: online storage.',
+      explanation_ar: 'الوسائل بتتقسم حسب طريقة التخزين: مغناطيسي (Magnetic) بيخزن بمغناطيس، ضوئي (Optical) بيستخدم ليزر، وفلاش (Solid-state) بيخزن إلكترونياً من غير حركة، وسحابي (Cloud) على سيرفرات.',
+      keywords: ['Magnetic', 'Optical', 'Solid-state (flash)', 'Cloud']
+    },
+    {
+      id: 's2-q4', section: 's2', page: 'p. 5', difficulty: 'medium',
+      question_en: 'Compare HDD and SSD.',
+      question_ar: 'قارن بين HDD و SSD.',
+      answer_en: 'HDD uses magnetic spinning platters, is slower, has moving parts (can break if dropped), is noisy with higher power use, and is cheaper per GB. SSD uses flash memory chips, is much faster, has no moving parts, is silent with less power use, and is more expensive per GB.',
+      explanation_ar: 'الـ HDD رخيص وسعته كبيرة بس أبطأ وفيه أجزاء بتتحرك فممكن يبوظ لو وقع. الـ SSD أسرع وهادي وأمتن بس أغلى. عشان كده أغلب اللابتوبات الجديدة بتيجي بـ SSD.',
+      table: {
+        headers: ['Feature', 'HDD', 'SSD'],
+        rows: [
+          ['Technology', 'Magnetic spinning platters', 'Flash memory chips'],
+          ['Speed', 'Slower', 'Much faster'],
+          ['Moving parts', 'Yes (can break if dropped)', 'No'],
+          ['Noise / power', 'Noisy, uses more power', 'Silent, uses less power'],
+          ['Price per GB', 'Cheaper', 'More expensive']
+        ]
+      },
+      keywords: ['Spinning platters', 'Flash memory chips', 'Moving parts', 'Speed', 'Price per GB']
+    },
+    {
+      id: 's2-q5', section: 's2', page: 'p. 5', difficulty: 'easy',
+      question_en: 'What are the floppy disk sizes?',
+      question_ar: 'ما هي أحجام القرص المرن (Floppy Disk)؟',
+      answer_en: '8 inch (1971), 5.25 inch (1976), and 3.5 inch (1980s) with a capacity of 1.44 MB.',
+      explanation_ar: 'الفلوبي نزلت بـ 3 أحجام وكل مرة بتصغر: 8 بوصة ← 5.25 ← 3.5 بوصة. آخر واحدة (3.5) سعتها 1.44 ميجا بس.',
+      keywords: ['8 inch (1971)', '5.25 inch (1976)', '3.5 inch (1980s)', '1.44 MB']
+    },
+
+    /* SECTION 3 (5) */
+    {
+      id: 's3-q1', section: 's3', page: 'p. 5', difficulty: 'easy',
+      question_en: 'What is a hard disk drive?',
+      question_ar: 'ما هو القرص الصلب (Hard Disk Drive)؟',
+      answer_en: 'A hard disk drive (HDD) is a magnetic storage device that stores data permanently on rotating metal disks called platters.',
+      explanation_ar: 'الهارد ديسك هو المخزن الرئيسي في الكمبيوتر، بيخزن عليه الويندوز والبرامج والملفات بشكل مغناطيسي على أقراص معدنية بتلف.',
+      keywords: ['magnetic storage', 'rotating metal disks', 'platters']
+    },
+    {
+      id: 's3-q2', section: 's3', page: 'p. 6', difficulty: 'hard',
+      question_en: 'What are the main components of an HDD?',
+      question_ar: 'ما هي المكونات الرئيسية للقرص الصلب (HDD)؟',
+      answer_en: 'Platters, Spindle (spindle motor, 5400 or 7200 RPM), Read/Write Heads, Actuator Arm, Actuator (voice coil motor), Controller (Logic) Board, Connectors (SATA/IDE & power), Case (Enclosure).',
+      explanation_ar: 'تخيلي الهارد زي جهاز أسطوانات قديم: الـ Platter هو الأسطوانة، الـ Spindle هو اللي بيلفها، الـ Head هي الإبرة اللي بتقرا وتكتب، والـ Actuator Arm هو الدراع اللي شايل الإبرة وبيحركها على الأسطوانة. الـ Controller Board هو "مخ" الهارد، والـ Connectors بتوصل الهارد بالمذربورد والكهربا. أهم 4 تحفظيهم: Platters, Spindle, Heads, Actuator Arm.',
+      table: {
+        headers: ['Component', 'Function'],
+        rows: [
+          ['Platters', 'Circular metal disks coated with magnetic material; data is stored on them'],
+          ['Spindle (spindle motor)', 'The motor/axis that spins the platters (5400 or 7200 RPM)'],
+          ['Read/Write Heads', 'Read data from and write data to the platters'],
+          ['Actuator Arm', 'Holds the heads and moves them across the platter'],
+          ['Actuator', 'Motor (voice coil) that moves the actuator arm'],
+          ['Controller (Logic) Board', 'Circuit board that controls the drive and talks to the computer'],
+          ['Connectors', 'Data connector (SATA/IDE) and power connector'],
+          ['Case (Enclosure)', 'Metal cover that protects the inside from dust']
+        ]
+      },
+      keywords: ['Platters', 'Spindle', 'Read/Write Heads', 'Actuator Arm', 'Controller Board']
+    },
+    {
+      id: 's3-q3', section: 's3', page: 'p. 6', difficulty: 'medium',
+      question_en: 'How does a hard disk work?',
+      question_ar: 'كيف يعمل القرص الصلب؟',
+      answer_en: 'The platters spin at high speed. The actuator moves the read/write heads over the platters. The heads magnetize tiny areas to write data and detect the magnetic pattern to read data.',
+      explanation_ar: 'الأقراص بتلف بسرعة، والـ Head بتتحرك فوقها من غير ما تلمسها، وتغير المغناطيسية في مناطق صغيرة جداً عشان تكتب (0 أو 1)، وبتحس بالمغناطيسية دي عشان تقرا.',
+      keywords: ['spin', 'actuator', 'magnetize', 'detect magnetic pattern']
+    },
+    {
+      id: 's3-q4', section: 's3', page: 'p. 6', difficulty: 'medium',
+      question_en: 'How is data organized on a hard disk?',
+      question_ar: 'كيف تُنظَّم البيانات على القرص الصلب؟',
+      answer_en: '• Track: a circular path on the platter.\n• Sector: a small section of a track (usually 512 bytes).\n• Cylinder: the same track on all platters stacked together.',
+      explanation_ar: 'الداتا بتتنظم زي ملعب جري: الـ Track هو المسار الدايري، والـ Sector هو قطعة صغيرة من المسار، والـ Cylinder هو نفس المسار على كل الأقراص فوق بعض.',
+      keywords: ['Track', 'Sector (512 bytes)', 'Cylinder']
+    },
+    {
+      id: 's3-q5', section: 's3', page: 'p. 7', difficulty: 'easy',
+      question_en: 'What are the HDD interfaces (connection types)?',
+      question_ar: 'ما هي واجهات (أنواع توصيل) القرص الصلب؟',
+      answer_en: 'IDE/PATA (old, wide ribbon cable), SCSI (servers), and SATA (modern, thin cable, faster).',
+      explanation_ar: 'ده نوع الكابل اللي بيوصل الهارد بالمذربورد. IDE قديم وعريض، SATA الحديث والأسرع والأرفع.',
+      keywords: ['IDE/PATA', 'SCSI', 'SATA']
+    },
+
+    /* SECTION 4 (6) */
+    {
+      id: 's4-q1', section: 's4', page: 'p. 7', difficulty: 'easy',
+      question_en: 'What is a monitor?',
+      question_ar: 'ما هي الشاشة (Monitor)؟',
+      answer_en: 'A monitor is an output device that displays text, images and video from the computer.',
+      explanation_ar: 'الشاشة جهاز إخراج (Output) بيعرض لنا اللي بيحصل في الكمبيوتر. بتتقاس بالبوصة قطرياً، وأهم مواصفاتها: Resolution (الدقة)، Refresh rate (معدل التحديث بالهرتز)، وResponse time.',
+      keywords: ['output device', 'Resolution', 'Refresh rate', 'Response time']
+    },
+    {
+      id: 's4-q2', section: 's4', page: 'p. 7', difficulty: 'medium',
+      question_en: 'Arrange the stages of monitor evolution.',
+      question_ar: 'رتّب مراحل تطور الشاشات.',
+      answer_en: '1. CRT (Cathode Ray Tube) -> 2. LCD (Liquid Crystal Display) -> 3. LED monitor -> 4. OLED -> 5. Modern types (Touch screens, curved, 4K/8K, high refresh rate).',
+      explanation_ar: 'الاتجاه: من التقيل الكبير لرفيع وخفيف. الـ CRT كان بيشتغل بأنبوب بيضرب إلكترونات على الشاشة فكان تقيل. الـ LCD استخدم بلورات سائلة وإضاءة خلفية. الـ LED نفس الـ LCD بس الإضاءة بلمبات LED فبقى أرفع. الـ OLED مفيهوش إضاءة خلفية، كل بكسل بينور لوحده فالأسود بيبقى أسود حقيقي.',
+      table: {
+        headers: ['#', 'Type', 'Key points'],
+        rows: [
+          ['1', 'CRT (Cathode Ray Tube)', 'Big, heavy, deep, high power use, can flicker'],
+          ['2', 'LCD (Liquid Crystal Display)', 'Thin and light, less power, uses a fluorescent backlight'],
+          ['3', 'LED monitor', 'LCD with LED backlight: thinner, brighter, saves more power'],
+          ['4', 'OLED', 'Each pixel makes its own light: true black, best colors, very thin'],
+          ['5', 'Modern types', 'Touch screens, curved, 4K/8K, high refresh rate (gaming)']
+        ]
+      },
+      keywords: ['CRT', 'LCD', 'LED', 'OLED', 'True black']
+    },
+    {
+      id: 's4-q3', section: 's4', page: 'p. 8', difficulty: 'medium',
+      question_en: 'What are the types of monitors by technology?',
+      question_ar: 'ما هي أنواع الشاشات حسب التقنية (المزايا والعيوب)؟',
+      answer_en: 'CRT (cheap, good colors / heavy, power-hungry, radiation), LCD (slim, low power / backlight bleed, limited viewing angle), LED (bright, thin, energy efficient / pricier than old LCD), Plasma (very good contrast, large / heavy, hot, burn-in), OLED (perfect black, fast, flexible / expensive, can burn-in).',
+      explanation_ar: 'دي أنواع الشاشات حسب التقنية. الـ Plasma كانت للتليفزيونات الكبيرة بس بتسخن وبتستهلك كهربا كتير فاختفت. الـ OLED الأحدث والأغلى.',
+      table: {
+        headers: ['Type', 'Advantages', 'Disadvantages'],
+        rows: [
+          ['CRT', 'Cheap, good colors, no fixed resolution', 'Heavy, large, power-hungry, radiation'],
+          ['LCD', 'Slim, light, low power', 'Backlight bleed, limited viewing angle'],
+          ['LED', 'Bright, thin, energy efficient', 'More expensive than old LCD'],
+          ['Plasma', 'Very good contrast and large size', 'Heavy, hot, high power, screen burn-in'],
+          ['OLED', 'Perfect black, fast, flexible', 'Expensive, can burn-in']
+        ]
+      },
+      keywords: ['CRT', 'LCD', 'LED', 'Plasma', 'OLED', 'Burn-in']
+    },
+    {
+      id: 's4-q4', section: 's4', page: 'p. 8', difficulty: 'medium',
+      question_en: 'What are the types of LCD panels?',
+      question_ar: 'ما هي أنواع ألواح شاشات LCD؟',
+      answer_en: '• TN (Twisted Nematic): Fastest response, cheapest, weaker colors and viewing angles (gaming budget).\n• IPS (In-Plane Switching): Best colors and wide viewing angles (design, photos).\n• VA (Vertical Alignment): Best contrast and deep black, medium speed (movies).',
+      explanation_ar: 'الشاشات الـ LCD نفسها ليها 3 أنواع ألواح: TN رخيصة وسريعة، IPS ألوانها ممتازة وزاوية الرؤية واسعة، VA تباينها عالي وأسودها عميق. TN = سرعة، IPS = ألوان، VA = تباين.',
+      table: {
+        headers: ['Panel', 'Main feature'],
+        rows: [
+          ['TN (Twisted Nematic)', 'Fastest response, cheapest, weaker colors and viewing angles (good for gaming budget)'],
+          ['IPS (In-Plane Switching)', 'Best colors and wide viewing angles (design, photos)'],
+          ['VA (Vertical Alignment)', 'Best contrast and deep black, medium speed (movies)']
+        ]
+      },
+      keywords: ['TN (Twisted Nematic)', 'IPS (In-Plane Switching)', 'VA (Vertical Alignment)']
+    },
+    {
+      id: 's4-q5', section: 's4', page: 'p. 9', difficulty: 'hard',
+      question_en: 'What are the old display standards (adapters)?',
+      question_ar: 'ما هي معايير العرض (كروت الشاشة) القديمة؟',
+      answer_en: 'MDA (1981, text only, monochrome) -> CGA (1981, 320x200, 4 colors) -> EGA (1984, 640x350, 16 colors) -> VGA (1987, 640x480, 16 colors / 256 at lower res) -> SVGA / XGA (1990s, 800x600 & 1024x768, millions of colors).',
+      explanation_ar: 'دي مراحل تطور كروت الشاشة والدقة. كل مرة الدقة (عدد البكسلات) والألوان بتزيد. ويا حبذا تحفظي الترتيب: MDA ← CGA ← EGA ← VGA ← SVGA. بعدها جت HD وFull HD (1920x1080) و4K.',
+      table: {
+        headers: ['Standard', 'Year', 'Resolution / Colors'],
+        rows: [
+          ['MDA', '1981', 'Text only, monochrome'],
+          ['CGA', '1981', '320x200, 4 colors'],
+          ['EGA', '1984', '640x350, 16 colors'],
+          ['VGA', '1987', '640x480, 16 colors (256 at lower res)'],
+          ['SVGA / XGA', '1990s', '800x600 and 1024x768, millions of colors']
+        ]
+      },
+      keywords: ['MDA', 'CGA', 'EGA', 'VGA', 'SVGA / XGA']
+    },
+    {
+      id: 's4-q6', section: 's4', page: 'p. 9', difficulty: 'easy',
+      question_en: 'What are monitor types by shape and function?',
+      question_ar: 'ما هي أنواع الشاشات حسب الشكل والوظيفة؟',
+      answer_en: '• Flat vs Curved screens.\n• Monochrome (one color) vs Color monitors.\n• Touch screen monitors (input + output).\n• Resolutions: HD (1280x720), Full HD (1920x1080), 4K (3840x2160), 8K.',
+      explanation_ar: 'ممكن الدكتور يسأل عن التصنيفات التانية: مسطحة أو منحنية، أحادية اللون أو ملونة، وشاشة اللمس بتبقى إدخال وإخراج في نفس الوقت. كل ما الدقة زادت الصورة بقت أوضح.',
+      keywords: ['Flat vs Curved', 'Touch screen (input + output)', 'HD', 'Full HD', '4K', '8K']
+    },
+
+    /* SECTION 5 (4) */
+    {
+      id: 's5-q1', section: 's5', page: 'p. 9', difficulty: 'easy',
+      question_en: 'What is a motherboard?',
+      question_ar: 'ما هي اللوحة الأم (Motherboard)؟',
+      answer_en: 'The motherboard is the main circuit board of the computer. All components (CPU, RAM, storage, cards) are connected to it and communicate through it.',
+      explanation_ar: 'المذربورد (اللوحة الأم) هي اللوحة الأساسية في الكمبيوتر، كل الأجزاء بتتركب عليها أو بتتوصل بيها، وهي اللي بتخليهم يتكلموا مع بعض. تشبيه: زي الشارع الرئيسي اللي بيوصل كل البيوت ببعض.',
+      keywords: ['main circuit board', 'CPU', 'RAM', 'storage', 'communicate']
+    },
+    {
+      id: 's5-q2', section: 's5', page: 'p. 10', difficulty: 'medium',
+      question_en: 'What are the main components of a motherboard?',
+      question_ar: 'ما هي المكونات الرئيسية للوحة الأم؟',
+      answer_en: '• CPU socket – holds the processor.\n• RAM slots – hold memory modules.\n• Chipset (Northbridge and Southbridge) – controls data flow.\n• BIOS/CMOS chip – starts the computer; the battery keeps settings and clock.\n• Expansion slots – ISA, PCI, AGP, PCI Express.\n• Storage connectors – IDE, SATA.\n• Power connector and I/O ports (USB, audio, video).',
+      explanation_ar: 'مكونات المذربورد: مكان المعالج (Socket)، أماكن الرامات (RAM slots)، الـ Chipset اللي بينظم حركة البيانات، شريحة الـ BIOS اللي بتشغل الجهاز أول ما نفتحه (والبطارية الصغيرة بتحفظ الساعة والإعدادات)، أماكن تركيب الكروت (PCI Express وغيرها)، وصلات الهارد، وصلة الكهربا، والمنافذ زي USB.',
+      keywords: ['CPU socket', 'RAM slots', 'Chipset', 'BIOS/CMOS', 'PCI Express', 'SATA']
+    },
+    {
+      id: 's5-q3', section: 's5', page: 'p. 10', difficulty: 'hard',
+      question_en: 'Arrange the stages of motherboard evolution (form factors).',
+      question_ar: 'رتّب مراحل تطور اللوحة الأم (Form Factors).',
+      answer_en: '1. IBM PC / XT (1981–1983) -> 2. AT (1984) -> 3. Baby AT -> 4. LPX / NLX -> 5. ATX (1995 by Intel, 305x244 mm) -> 6. Micro ATX (244x244 mm) -> 7. Mini-ITX (2001, 170x170 mm).',
+      explanation_ar: 'التطور بيمشي من لوحات كبيرة جداً لأصغر، مع زيادة الإمكانيات. الـ AT كان كبير ومش مريح. الـ ATX بتاع Intel (1995) غيّر كل حاجة وبقى المعيار المستخدم لحد النهارده (تحسين التبريد وتوصيل الكهربا). بعد كده ظهرت Micro ATX وMini-ITX عشان الأجهزة الصغيرة.',
+      table: {
+        headers: ['#', 'Form factor', 'Notes'],
+        rows: [
+          ['1', 'IBM PC / XT', '1981–1983, the first motherboards, very large'],
+          ['2', 'AT', '1984, large (about 12" wide), hard to fit in small cases'],
+          ['3', 'Baby AT', 'Smaller version of AT, same mounting holes'],
+          ['4', 'LPX / NLX', 'Slim designs for low-profile desktops'],
+          ['5', 'ATX', '1995 by Intel, the modern standard (305 x 244 mm)'],
+          ['6', 'Micro ATX', 'Smaller than ATX (244 x 244 mm), fewer slots'],
+          ['7', 'Mini-ITX', '2001, very small (170 x 170 mm), compact PCs']
+        ]
+      },
+      keywords: ['IBM PC / XT', 'AT', 'Baby AT', 'LPX / NLX', 'ATX (1995)', 'Micro ATX', 'Mini-ITX (2001)']
+    },
+    {
+      id: 's5-q4', section: 's5', page: 'p. 11', difficulty: 'easy',
+      question_en: 'What are the types of motherboards?',
+      question_ar: 'ما هي أنواع اللوحات الأم الحالية؟',
+      answer_en: '• ATX – standard size, most slots.\n• Micro ATX – medium size.\n• Mini-ITX – small, for compact PCs.\n• E-ATX – extended, for high-end workstations/servers.\nAlso can be classified by CPU brand: Intel or AMD motherboards.',
+      explanation_ar: 'الأنواع الحالية بتتفرق بالحجم وعدد الـ slots: ATX هو الأكبر والمعتاد، Micro ATX متوسط، Mini-ITX صغير، وE-ATX للأجهزة القوية جداً. وفيه تصنيف تاني حسب المعالج: لوحات Intel ولوحات AMD (كل واحد ليه Socket مختلف).',
+      keywords: ['ATX', 'Micro ATX', 'Mini-ITX', 'E-ATX', 'Intel / AMD']
+    },
+
+    /* SECTION 6 (6) */
+    {
+      id: 's6-q1', section: 's6', page: 'p. 11', difficulty: 'easy',
+      question_en: 'What is an operating system?',
+      question_ar: 'ما هو نظام التشغيل (Operating System)؟',
+      answer_en: 'An operating system is system software that manages computer hardware and software resources and acts as an interface between the user and the hardware.',
+      explanation_ar: 'نظام التشغيل هو البرنامج الأساسي اللي بيشغل الجهاز ويدير كل حاجة فيه، وبيبقى واسطة بينك وبين الهاردوير. من غيره الجهاز بيبقى مجرد قطع مش بتتفاهم معاكي. أمثلة: Windows, macOS, Linux, Android, iOS.',
+      keywords: ['system software', 'manages hardware & software', 'interface']
+    },
+    {
+      id: 's6-q2', section: 's6', page: 'p. 11', difficulty: 'easy',
+      question_en: 'What are the main functions of an operating system?',
+      question_ar: 'ما هي الوظائف الرئيسية لنظام التشغيل؟',
+      answer_en: '• Process management (running programs).\n• Memory management (RAM).\n• File management (storage).\n• Device management (drivers, I/O).\n• Security and user interface.',
+      explanation_ar: 'الـ OS بيعمل 5 حاجات رئيسية: بيدير البرامج الشغالة، بيوزع الذاكرة (RAM) بينهم، بيدير الملفات، بيتحكم في الأجهزة المتوصلة (Printer, Mouse)، وبيوفر الحماية والواجهة اللي بتتعاملي معاها.',
+      keywords: ['Process management', 'Memory management', 'File management', 'Device management', 'Security & UI']
+    },
+    {
+      id: 's6-q3', section: 's6', page: 'p. 12', difficulty: 'hard',
+      question_en: 'Arrange the stages of OS evolution.',
+      question_ar: 'رتّب مراحل تطور أنظمة التشغيل.',
+      answer_en: '1. No OS (1940s) -> 2. Batch Processing (1950s) -> 3. Multiprogramming & Time-Sharing (1960s–70s, UNIX 1969) -> 4. Personal Computer OS (1970s–80s: CP/M, MS-DOS 1981, Mac OS 1984, Windows 1.0 1985) -> 5. GUI and Network OS (1990s: Windows 95, Linux 1991) -> 6. Modern and Mobile OS (2000s–now: XP/10/11, macOS, iOS 2007, Android 2008, cloud).',
+      explanation_ar: 'القصة ببساطة: في الأول مكنش فيه OS ولازم المبرمج يكلم الجهاز بلغة الآلة. بعدين ظهر الـ Batch (بنجمع شغل كتير ونشغله مرة واحدة). بعدها Time-sharing: أكتر من مستخدم يستخدم الجهاز مع بعض. بعدها الكمبيوتر الشخصي: MS-DOS (أوامر مكتوبة) وبعدها Mac وWindows (واجهة رسومية بالأيقونات والماوس). وأخيراً أنظمة الموبايل Android وiOS. الاتجاه: من Command Line ← إلى GUI.',
+      table: {
+        headers: ['#', 'Stage', 'Period', 'Key points'],
+        rows: [
+          ['1', 'No OS', '1940s', 'Programmers used machine language directly; one program at a time'],
+          ['2', 'Batch Processing', '1950s', 'Jobs collected and run in groups (batches); no user interaction'],
+          ['3', 'Multiprogramming & Time-Sharing', '1960s–70s', 'Many programs/users share the CPU at once; UNIX (1969)'],
+          ['4', 'Personal Computer OS', '1970s–80s', 'CP/M, MS-DOS (1981, command line), Mac OS (1984, GUI), Windows 1.0 (1985)'],
+          ['5', 'GUI and Network OS', '1990s', 'Windows 95, Linux (1991), networking and Internet'],
+          ['6', 'Modern and Mobile OS', '2000s–now', 'Windows XP/10/11, macOS, iOS (2007), Android (2008), cloud']
+        ]
+      },
+      keywords: ['No OS', 'Batch Processing', 'UNIX (1969)', 'MS-DOS (1981)', 'Mac OS (1984)', 'Linux (1991)', 'iOS (2007)', 'Android (2008)']
+    },
+    {
+      id: 's6-q4', section: 's6', page: 'p. 12', difficulty: 'easy',
+      question_en: 'What is the difference between CLI and GUI?',
+      question_ar: 'ما الفرق بين CLI و GUI؟',
+      answer_en: 'CLI (Command Line Interface) uses typed commands, is harder (must memorize commands), e.g., MS-DOS, Linux terminal. GUI (Graphical User Interface) uses mouse, icons, windows, touch, is easy and user-friendly, e.g., Windows, macOS, Android.',
+      explanation_ar: 'الـ CLI بتكتبي فيه أوامر بإيدك (زي MS-DOS) ومحتاج تحفظي الأوامر. الـ GUI بتتعاملي بالضغط على أيقونات وقوايم وده الأسهل ودلوقتي هو المستخدم.',
+      table: {
+        headers: ['Aspect', 'CLI (Command Line Interface)', 'GUI (Graphical User Interface)'],
+        rows: [
+          ['Input', 'Typed commands', 'Mouse, icons, windows, touch'],
+          ['Ease', 'Harder, must memorize commands', 'Easy and user-friendly'],
+          ['Example', 'MS-DOS, Linux terminal', 'Windows, macOS, Android']
+        ]
+      },
+      keywords: ['CLI', 'GUI', 'MS-DOS', 'Windows / macOS / Android']
+    },
+    {
+      id: 's6-q5', section: 's6', page: 'p. 13', difficulty: 'medium',
+      question_en: 'What are the types of operating systems?',
+      question_ar: 'ما هي أنواع أنظمة التشغيل؟',
+      answer_en: '• Batch OS – runs jobs in groups.\n• Time-sharing (multitasking) OS – shares CPU time among users.\n• Real-time OS (RTOS) – responds within a strict time (airplanes, medical devices).\n• Network / Distributed OS – manages multiple connected computers.\n• Mobile OS – Android, iOS.\n• Embedded OS – inside devices like washing machines and cars.',
+      explanation_ar: 'الأنواع حسب الاستخدام: Batch (دفعات)، Time-sharing (مشاركة الوقت)، Real-time (استجابة فورية مضمونة زي الطيارات والأجهزة الطبية)، Network (شبكات)، Mobile (موبايل)، Embedded (مدمج داخل أجهزة زي الغسالة والعربية).',
+      keywords: ['Batch OS', 'Time-sharing', 'RTOS', 'Network / Distributed', 'Mobile OS', 'Embedded OS']
+    },
+    {
+      id: 's6-q6', section: 's6', page: 'p. 13', difficulty: 'easy',
+      question_en: 'Give examples of popular operating systems.',
+      question_ar: 'أعطِ أمثلة على أشهر أنظمة التشغيل.',
+      answer_en: 'Desktop: Windows, macOS, Linux. Mobile: Android, iOS. Servers: Linux, Windows Server.',
+      explanation_ar: 'أمثلة مهمة تذكريها في الإجابة: Windows (Microsoft)، macOS (Apple)، Linux (مفتوح المصدر Open source)، Android (Google)، iOS (Apple).',
+      keywords: ['Windows', 'macOS', 'Linux (Open source)', 'Android', 'iOS']
+    }
+  ],
+
+  /* ==================== VERIFIED QUIZ BANK (STRICTLY GROUNDED IN PDF) ==================== */
+  quizBank: [
+    { id: 'qz-1', section: 's1', q: 'Which 5 stages describe how Information Technology (IT) handles information?', qAr: 'ما هي المراحل الخمس التي تتعامل بها الـ IT مع المعلومات؟', opts: ['Input, process, store, transmit, retrieve', 'Design, print, sell, repair, archive', 'Compile, encrypt, delete, compress, boot', 'Scan, copy, fax, call, mail'], correct: 0, exp: 'IT uses computers, networks, and software to input, process, store, transmit, and retrieve information (p. 1).' },
+    { id: 'qz-2', section: 's1', q: 'Which age of IT development lasted from 1450 to 1840 and featured the Gutenberg printing press and Pascaline?', qAr: 'أي عصر من عصور تكنولوجيا المعلومات امتد من 1450 إلى 1840 وشهد مطبعة جوتنبرج وآلة باسكال؟', opts: ['Premechanical', 'Mechanical', 'Electromechanical', 'Electronic'], correct: 1, exp: 'The Mechanical age (1450–1840) introduced Gutenberg printing press (1450), Pascaline (1642), and Babbage Analytical Engine (p. 2).' },
+    { id: 'qz-3', section: 's1', q: 'Who is known as the "Father of the Computer" for designing the Analytical Engine?', qAr: 'من يُلقَّب بـ "أبو الكمبيوتر" لتصميمه المحرك التحليلي (Analytical Engine)؟', opts: ['Blaise Pascal', 'Samuel Morse', 'Charles Babbage', 'Guglielmo Marconi'], correct: 2, exp: 'Charles Babbage designed the Analytical Engine, while Ada Lovelace was the first programmer in history (p. 2).' },
+    { id: 'qz-4', section: 's1', q: 'What was the core technology of the 3rd generation of computers (1964–1971)?', qAr: 'ما هي التقنية الأساسية للجيل الثالث من الكمبيوتر (1964–1971)؟', opts: ['Vacuum tubes', 'Transistors', 'Integrated Circuits (IC)', 'Microprocessors'], correct: 2, exp: '1st: Vacuum tubes, 2nd: Transistors, 3rd: Integrated Circuits (IC), 4th: Microprocessors, 5th: AI (p. 3).' },
+    { id: 'qz-5', section: 's1', q: 'Which invention marked the start of the Electronic age in 1946?', qAr: 'أي اختراع مثّل بداية العصر الإلكتروني عام 1946؟', opts: ['Abacus', 'ENIAC', 'Hollerith tabulating machine', 'Slide rule'], correct: 1, exp: 'ENIAC (1946) was the first electronic computer (p. 2).' },
+
+    { id: 'qz-6', section: 's2', q: 'What does it mean that storage media is "non-volatile"?', qAr: 'ماذا يعني أن وسائل التخزين غير متطايرة (non-volatile)؟', opts: ['Data disappears when power turns off', 'Data is saved permanently even after power is turned off', 'It only stores temporary RAM files', 'It requires an internet connection'], correct: 1, exp: 'Storage media saves data permanently even after power is turned off, unlike volatile RAM (p. 3).' },
+    { id: 'qz-7', section: 's2', q: 'How much data did the first Hard Disk (IBM RAMAC, 1956) store, and what access method did it introduce?', qAr: 'ما سعة أول هارد ديسك (IBM RAMAC سنة 1956) وما طريقة الوصول التي قدمها؟', opts: ['1.44 MB; sequential access', '5 MB; random access', '700 MB; optical laser access', '25 GB; flash access'], correct: 1, exp: 'IBM RAMAC (1956) stored 5 MB and introduced random access (p. 4).' },
+    { id: 'qz-8', section: 's2', q: 'What are the standard capacities of CD, DVD, and Blu-ray discs respectively?', qAr: 'ما السعة القياسية لكل من CD و DVD و Blu-ray بالترتيب؟', opts: ['1.44 MB, 5 MB, 80 KB', '700 MB, 4.7 GB, 25 GB', '512 bytes, 700 MB, 4.7 GB', '4.7 GB, 25 GB, 1 TB'], correct: 1, exp: 'Optical discs (1982 on): CD (700 MB), DVD (4.7 GB), Blu-ray (25 GB), read by laser (p. 4).' },
+    { id: 'qz-9', section: 's2', q: 'Which statement accurately compares SSD to HDD?', qAr: 'أي عبارة تقارن بين SSD و HDD بدقة؟', opts: ['SSD has spinning platters and is slower', 'SSD uses flash chips, has no moving parts, and is much faster', 'HDD is silent and uses less power than SSD', 'SSD is cheaper per GB than HDD'], correct: 1, exp: 'SSDs use flash memory chips with no moving parts, making them faster, silent, and lower-power, though more expensive per GB (p. 5).' },
+    { id: 'qz-10', section: 's2', q: 'What was the capacity of the 3.5-inch floppy disk introduced in the 1980s?', qAr: 'ما هي سعة القرص المرن مقاس 3.5 بوصة في الثمانينيات؟', opts: ['80 characters', '1.44 MB', '5 MB', '700 MB'], correct: 1, exp: 'Floppy sizes evolved from 8" (1971) -> 5.25" (1976) -> 3.5" (1980s, 1.44 MB) (p. 5).' },
+
+    { id: 'qz-11', section: 's3', q: 'Which HDD component spins the platters at 5400 or 7200 RPM?', qAr: 'أي مكون في الهارد ديسك يدير الأقراص بسرعة 5400 أو 7200 لفة/دقيقة؟', opts: ['Actuator Arm', 'Spindle (spindle motor)', 'Controller Board', 'Case Enclosure'], correct: 1, exp: 'The Spindle (spindle motor) is the motor/axis that spins the platters at 5400 or 7200 RPM (p. 6).' },
+    { id: 'qz-12', section: 's3', q: 'How is a "Sector" defined in HDD data organization?', qAr: 'كيف يُعرَّف الـ Sector في تنظيم بيانات القرص الصلب؟', opts: ['The same track stacked across all platters', 'A small section of a track, usually 512 bytes', 'The outer metal case', 'The SATA data cable'], correct: 1, exp: 'Track = circular path; Sector = small section of a track (usually 512 bytes); Cylinder = same track on all platters stacked together (p. 6).' },
+    { id: 'qz-13', section: 's3', q: 'Which HDD component acts as the "brain" controlling the drive and communicating with the computer?', qAr: 'أي مكون يُعد "مخ" الهارد الذي يتحكم فيه ويتواصل مع الكمبيوتر؟', opts: ['Platters', 'Controller (Logic) Board', 'Spindle', 'Actuator'], correct: 1, exp: 'The Controller (Logic) Board is the circuit board that controls the drive and talks to the computer (p. 6).' },
+    { id: 'qz-14', section: 's3', q: 'Which HDD interface uses a modern, thin, faster cable compared to the old wide IDE/PATA ribbon?', qAr: 'أي واجهة توصيل تستخدم كابلاً حديثاً رفيعاً وأسرع مقارنة بكابل IDE العريض القديم؟', opts: ['IDE/PATA', 'SATA', 'MDA', 'ISA'], correct: 1, exp: 'HDD interfaces: IDE/PATA (old, wide ribbon), SCSI (servers), and SATA (modern, thin cable, faster) (p. 7).' },
+
+    { id: 'qz-15', section: 's4', q: 'Which monitor technology allows each pixel to make its own light for true black and best colors?', qAr: 'أي تقنية شاشات تجعل كل بكسل يُصدر ضوءه بنفسه لأسود حقيقي وأفضل ألوان؟', opts: ['CRT', 'LCD', 'LED', 'OLED'], correct: 3, exp: 'OLED has no backlight—each pixel emits its own light, producing true black and very thin screens (p. 7).' },
+    { id: 'qz-16', section: 's4', q: 'Which LCD panel type offers the best colors and wide viewing angles for design and photo work?', qAr: 'أي نوع من ألواح LCD يقدم أفضل ألوان وزاوية رؤية واسعة للتصميم والصور؟', opts: ['TN (Twisted Nematic)', 'IPS (In-Plane Switching)', 'VA (Vertical Alignment)', 'CRT'], correct: 1, exp: 'TN = fastest response/cheapest; IPS = best colors & wide viewing angles; VA = best contrast & deep black (p. 8).' },
+    { id: 'qz-17', section: 's4', q: 'Which old display standard from 1987 introduced 640x480 resolution with 16 colors (256 at lower res)?', qAr: 'أي معيار عرض قديم سنة 1987 قدم دقة 640x480 بـ 16 لوناً؟', opts: ['MDA (1981)', 'CGA (1981)', 'EGA (1984)', 'VGA (1987)'], correct: 3, exp: 'VGA (1987) delivered 640x480 with 16 colors (256 at lower resolution) (p. 9).' },
+    { id: 'qz-18', section: 's4', q: 'Why are touch screen monitors special in terms of device classification?', qAr: 'لماذا تُعد شاشات اللمس مميزة من حيث تصنيف الأجهزة؟', opts: ['They are storage devices', 'They act as both input and output devices', 'They only display monochrome text', 'They use vacuum tubes'], correct: 1, exp: 'Touch screen monitors serve as both input + output devices at the same time (p. 9).' },
+
+    { id: 'qz-19', section: 's5', q: 'Which motherboard component starts the computer and uses a battery to keep settings and the system clock?', qAr: 'أي مكون في اللوحة الأم يشغّل الجهاز وتستخدم بطاريته لحفظ الإعدادات والساعة؟', opts: ['RAM slots', 'BIOS/CMOS chip', 'CPU socket', 'SATA connector'], correct: 1, exp: 'The BIOS/CMOS chip starts the computer and its battery preserves settings and clock (p. 10).' },
+    { id: 'qz-20', section: 's5', q: 'Which motherboard form factor introduced by Intel in 1995 (305 x 244 mm) became the modern standard?', qAr: 'أي معيار لوحة أم قدمته Intel سنة 1995 (305x244 مم) وأصبح المعيار الحديث؟', opts: ['IBM PC / XT', 'AT', 'ATX', 'Mini-ITX'], correct: 2, exp: 'ATX (1995 by Intel, 305 x 244 mm) revolutionized cooling and power and became the modern standard (p. 10).' },
+    { id: 'qz-21', section: 's5', q: 'What is the role of the Chipset (Northbridge and Southbridge) on a motherboard?', qAr: 'ما هي وظيفة الـ Chipset (Northbridge و Southbridge) على اللوحة الأم؟', opts: ['Spins the hard disk platters', 'Controls data flow between components', 'Displays images on screen', 'Provides AC power to the wall'], correct: 1, exp: 'The Chipset (Northbridge and Southbridge) controls data flow across the motherboard (p. 10).' },
+    { id: 'qz-22', section: 's5', q: 'Which motherboard type is very small (170 x 170 mm, 2001) and designed for compact PCs?', qAr: 'أي نوع لوحة أم صغير جداً (170x170 مم سنة 2001) ومصمم للأجهزة المدمجة؟', opts: ['E-ATX', 'AT', 'Mini-ITX', 'IBM PC / XT'], correct: 2, exp: 'Mini-ITX (2001, 170 x 170 mm) is designed for compact PCs (pp. 10–11).' },
+
+    { id: 'qz-23', section: 's6', q: 'Which operating system type guarantees responses within a strict time limit for airplanes and medical devices?', qAr: 'أي نوع أنظمة تشغيل يضمن استجابة فورية صارمة للطائرات والأجهزة الطبية؟', opts: ['Batch OS', 'Real-time OS (RTOS)', 'Mobile OS', 'CLI OS'], correct: 1, exp: 'Real-time OS (RTOS) responds within a strict time limit (airplanes, medical devices) (p. 13).' },
+    { id: 'qz-24', section: 's6', q: 'In which OS evolution stage did UNIX (1969) appear so multiple programs and users could share the CPU?', qAr: 'في أي مرحلة من تطور أنظمة التشغيل ظهر نظام UNIX (1969)؟', opts: ['No OS (1940s)', 'Batch Processing (1950s)', 'Multiprogramming & Time-Sharing (1960s–70s)', 'Modern and Mobile OS (2000s–now)'], correct: 2, exp: 'Multiprogramming & Time-Sharing (1960s–70s) let many programs/users share the CPU, including UNIX (1969) (p. 12).' },
+    { id: 'qz-25', section: 's6', q: 'How does GUI differ from CLI?', qAr: 'كيف تختلف الواجهة الرسومية (GUI) عن واجهة سطر الأوامر (CLI)؟', opts: ['GUI requires memorizing typed commands', 'GUI uses mouse, icons, windows, and touch and is user-friendly', 'CLI is used on Android and iOS phones', 'CLI is easier than GUI for beginners'], correct: 1, exp: 'CLI uses typed commands (MS-DOS, Linux terminal); GUI uses mouse, icons, windows, and touch (Windows, macOS, Android) (p. 12).' },
+    { id: 'qz-26', section: 's6', q: 'Which year were iOS and Android released according to the OS evolution timeline?', qAr: 'في أي عام صدر كل من iOS و Android وفق جدول تطور أنظمة التشغيل؟', opts: ['1984 and 1985', '1991 and 1995', '2007 and 2008', '1969 and 1981'], correct: 2, exp: 'Modern & Mobile OS (2000s–now): iOS (2007) and Android (2008) (p. 12).' }
+  ],
+
+  /* ==================== TRUE / FALSE PRACTICE BANK (STRICTLY FROM PDF) ==================== */
+  tfBank: [
+    { id: 'tf-1', section: 's1', q: 'The Mechanical age (1450–1840) used electricity combined with mechanical parts.', ans: false, exp: 'False. The Mechanical age used gears and wheels without electricity; electricity + mechanics was the Electromechanical age (1840–1940) (p. 2).' },
+    { id: 'tf-2', section: 's1', q: 'Ada Lovelace is recognized as the first programmer in history.', ans: true, exp: 'True (p. 2).' },
+    { id: 'tf-3', section: 's2', q: 'Magnetic Tape (1951) uses sequential access, whereas Hard Disk (HDD, 1956) introduced random access.', ans: true, exp: 'True (p. 4).' },
+    { id: 'tf-4', section: 's2', q: 'RAM is non-volatile storage that keeps data permanently after power is turned off.', ans: false, exp: 'False. Storage media is non-volatile; RAM loses data when power turns off (p. 3).' },
+    { id: 'tf-5', section: 's3', q: 'Read/Write heads physically touch and press against the HDD platters to write data.', ans: false, exp: 'False. The heads move over the platters without touching them and magnetize tiny areas (p. 6).' },
+    { id: 'tf-6', section: 's3', q: 'A Cylinder is the same track stacked across all platters in a hard disk.', ans: true, exp: 'True (p. 6).' },
+    { id: 'tf-7', section: 's4', q: 'VA LCD panels are best known for the best contrast and deep black.', ans: true, exp: 'True: TN = speed, IPS = colors, VA = contrast & deep black (p. 8).' },
+    { id: 'tf-8', section: 's4', q: 'OLED monitors require a fluorescent backlight to illuminate pixels.', ans: false, exp: 'False. In OLED, each pixel makes its own light with no backlight (p. 7).' },
+    { id: 'tf-9', section: 's5', q: 'The ATX motherboard form factor was introduced by Intel in 1995.', ans: true, exp: 'True (p. 10).' },
+    { id: 'tf-10', section: 's6', q: 'Embedded OS runs inside devices such as washing machines and cars.', ans: true, exp: 'True (p. 13).' },
+    { id: 'tf-11', section: 's6', q: 'Batch Processing (1950s) allowed direct real-time user interaction while jobs ran.', ans: false, exp: 'False. Batch Processing collected and ran jobs in groups with no user interaction (p. 12).' }
+  ],
+
+  /* ==================== FILL IN THE BLANK BANK (FROM ORIGINAL ANSWERS) ==================== */
+  fillBank: [
+    { id: 'fb-1', section: 's1', q: 'IT is the use of computers, networks, and software to input, process, store, __________, and retrieve information.', ans: ['transmit'], display: 'transmit', exp: 'The 5 IT operations: input, process, store, transmit, retrieve (p. 1).' },
+    { id: 'fb-2', section: 's1', q: 'The 2nd generation of computers (1956–1963) used __________ instead of vacuum tubes.', ans: ['transistors', 'transistor'], display: 'Transistors', exp: '2nd generation = Transistors (p. 3).' },
+    { id: 'fb-3', section: 's2', q: 'The first Hard Disk (1956, IBM RAMAC) stored __________ MB and introduced random access.', ans: ['5', '5 mb'], display: '5', exp: 'IBM RAMAC (1956) stored 5 MB (p. 4).' },
+    { id: 'fb-4', section: 's3', q: 'A __________ is a small section of a track on a hard disk platter, usually 512 bytes.', ans: ['sector'], display: 'Sector', exp: 'Sector = small section of a track, usually 512 bytes (p. 6).' },
+    { id: 'fb-5', section: 's4', q: 'In LCD panels, __________ (In-Plane Switching) delivers the best colors and wide viewing angles.', ans: ['ips'], display: 'IPS', exp: 'IPS = best colors & wide viewing angles (p. 8).' },
+    { id: 'fb-6', section: 's5', q: 'The __________ chip starts the computer and its battery keeps settings and the system clock.', ans: ['bios', 'cmos', 'bios/cmos'], display: 'BIOS/CMOS', exp: 'BIOS/CMOS chip & battery (p. 10).' },
+    { id: 'fb-7', section: 's6', q: 'A __________ (RTOS) responds within a strict time limit for airplanes and medical devices.', ans: ['real-time os', 'real time os', 'real-time operating system'], display: 'Real-time OS', exp: 'Real-time OS (RTOS) (p. 13).' }
+  ],
+
+  /* ==================== MATCH THE TERMS BANK ==================== */
+  matchSets: [
+    {
+      titleEn: 'IT, Storage & HDD Terms', titleAr: 'مصطلحات تكنولوجيا المعلومات والتخزين والهارد',
+      pairs: [
+        { id: 'm1', term: 'Non-volatile Storage', def: 'Saves data permanently even after power is turned off' },
+        { id: 'm2', term: 'Spindle Motor', def: 'Spins the HDD platters at 5400 or 7200 RPM' },
+        { id: 'm3', term: 'Actuator Arm', def: 'Holds the read/write heads and moves them across the platter' },
+        { id: 'm4', term: 'Cylinder', def: 'The same track stacked across all platters together' },
+        { id: 'm5', term: 'SATA', def: 'Modern, thin, faster HDD connection cable' }
+      ]
+    },
+    {
+      titleEn: 'Monitors, Motherboards & OS Terms', titleAr: 'مصطلحات الشاشات واللوحة الأم وأنظمة التشغيل',
+      pairs: [
+        { id: 'm6', term: 'OLED', def: 'Each pixel makes its own light for true black and best colors' },
+        { id: 'm7', term: 'TN Panel', def: 'Fastest response and cheapest LCD panel, weaker colors' },
+        { id: 'm8', term: 'Chipset', def: 'Northbridge & Southbridge controlling motherboard data flow' },
+        { id: 'm9', term: 'CLI', def: 'Command Line Interface requiring typed commands (e.g., MS-DOS)' },
+        { id: 'm10', term: 'Embedded OS', def: 'Operating system built inside devices like washing machines and cars' }
+      ]
+    }
+  ],
+
+  /* ==================== ARRANGE IN ORDER (5 HISTORICAL SEQUENCES FROM PDF) ==================== */
+  orderSets: [
+    {
+      id: 'ord-1', section: 's1',
+      titleEn: 'Four Ages of IT Development', titleAr: 'العصور الأربعة لتطور تكنولوجيا المعلومات',
+      items: ['Premechanical (3000 BC – 1450 AD)', 'Mechanical (1450 – 1840)', 'Electromechanical (1840 – 1940)', 'Electronic (1940 – present)']
+    },
+    {
+      id: 'ord-2', section: 's2',
+      titleEn: 'Evolution of Storage Media (8 Stages)', titleAr: 'تطور وسائل التخزين (8 مراحل)',
+      items: ['Punch Cards (1890)', 'Magnetic Tape (1951)', 'Hard Disk / HDD (1956)', 'Floppy Disk (1971)', 'Optical Discs: CD/DVD/Blu-ray (1982 on)', 'Flash / USB / Memory Cards (2000 on)', 'SSD (2000s on)', 'Cloud Storage (2000s on)']
+    },
+    {
+      id: 'ord-3', section: 's4',
+      titleEn: 'Monitor Evolution', titleAr: 'تطور الشاشات',
+      items: ['CRT (Cathode Ray Tube)', 'LCD (Liquid Crystal Display)', 'LED Monitor', 'OLED', 'Modern Types (Touch, Curved, 4K/8K)']
+    },
+    {
+      id: 'ord-4', section: 's5',
+      titleEn: 'Motherboard Form Factors Evolution', titleAr: 'تطور مقاسات اللوحة الأم',
+      items: ['IBM PC / XT (1981–1983)', 'AT (1984)', 'Baby AT', 'LPX / NLX', 'ATX (1995 by Intel)', 'Micro ATX', 'Mini-ITX (2001)']
+    },
+    {
+      id: 'ord-5', section: 's6',
+      titleEn: 'Operating System Evolution', titleAr: 'تطور أنظمة التشغيل',
+      items: ['No OS (1940s)', 'Batch Processing (1950s)', 'Multiprogramming & Time-Sharing (1960s–70s)', 'Personal Computer OS (1970s–80s)', 'GUI and Network OS (1990s)', 'Modern and Mobile OS (2000s–now)']
+    }
+  ],
+
+  /* ==================== QUICK REVISION SHEET (PDF p. 14 + STRUCTURED TABLES) ==================== */
+  revision: {
+    sheetBullets: [
+      'IT: input - process - store - transmit - retrieve information.',
+      '4 Ages: Premechanical (Abacus) - Mechanical (Gutenberg, Pascal) - Electromechanical (Telegraph, Telephone) - Electronic (ENIAC, Internet).',
+      'Storage: Punch Cards - Magnetic Tape - HDD - Floppy - CD/DVD/Blu-ray - USB Flash - SSD - Cloud.',
+      'HDD parts: Platters, Spindle, R/W Heads, Actuator Arm, Actuator, Controller Board, Connectors.',
+      'Monitors: CRT - LCD - LED - OLED (also Plasma). Panels: TN (speed), IPS (colors), VA (contrast).',
+      'Motherboard: XT - AT - Baby AT - ATX (1995) - Micro ATX - Mini-ITX.',
+      'OS: No OS - Batch - Time-sharing - PC OS (MS-DOS then Windows) - Modern/Mobile (Android, iOS).'
+    ],
+    goldenRuleAr: 'قاعدة تفتكري بيها كل الأقسام: مع كل تطور = حجم أصغر + سرعة أعلى + سعة أكبر + سعر أقل. استخدميها لو نسيتي ترتيب أي مرحلة.',
+    goldenRuleEn: 'Golden Rule across every section: With every technological evolution = Smaller size + Higher speed + Larger capacity + Lower cost.',
+    dates: [
+      ['1450', 'Gutenberg printing press (Mechanical Age)'],
+      ['1642', 'Pascaline calculator by Blaise Pascal'],
+      ['1876', 'Telephone by Alexander Graham Bell'],
+      ['1890', 'Punch Cards by Herman Hollerith (~80 chars/card)'],
+      ['1946', 'ENIAC — first electronic computer'],
+      ['1951', 'Magnetic Tape (sequential access)'],
+      ['1956', 'IBM RAMAC — first HDD (5 MB, random access)'],
+      ['1969', 'UNIX (Multiprogramming & Time-Sharing)'],
+      ['1971', 'First Floppy Disk (8 inch) & 4th Gen Microprocessors'],
+      ['1981', 'MDA, CGA, IBM PC/XT, MS-DOS'],
+      ['1984', 'EGA, AT Motherboard, Mac OS (GUI)'],
+      ['1985', 'Windows 1.0'],
+      ['1987', 'VGA (640x480, 16 colors)'],
+      ['1991', 'Linux (Open source)'],
+      ['1995', 'ATX Motherboard by Intel & Windows 95'],
+      ['2001', 'Mini-ITX (170x170 mm)'],
+      ['2007 / 2008', 'iOS (2007) & Android (2008)']
+    ],
+    inventors: [
+      ['Johannes Gutenberg', 'Printing press (1450)'],
+      ['Blaise Pascal', 'Pascaline mechanical calculator (1642)'],
+      ['Charles Babbage', 'Analytical Engine ("Father of the Computer")'],
+      ['Ada Lovelace', 'First computer programmer in history'],
+      ['Samuel Morse', 'Telegraph'],
+      ['Alexander Graham Bell', 'Telephone (1876)'],
+      ['Guglielmo Marconi', 'Radio'],
+      ['Herman Hollerith', 'Punch Cards (1890) & Tabulating Machine']
+    ],
+    abbreviations: [
+      ['IT', 'Information Technology'],
+      ['IC', 'Integrated Circuit (3rd Gen)'],
+      ['HDD / SSD', 'Hard Disk Drive / Solid-State Drive'],
+      ['RPM', 'Revolutions Per Minute (5400 / 7200)'],
+      ['IDE / PATA / SATA / SCSI', 'HDD Interface Connection Types'],
+      ['CRT / LCD / LED / OLED', 'Monitor Display Technologies'],
+      ['TN / IPS / VA', 'Twisted Nematic / In-Plane Switching / Vertical Alignment'],
+      ['MDA / CGA / EGA / VGA / SVGA', 'Historical Display Adapter Standards'],
+      ['BIOS / CMOS', 'Basic Input/Output System / Complementary Metal-Oxide-Semiconductor'],
+      ['ATX / E-ATX / Mini-ITX', 'Motherboard Form Factors'],
+      ['OS / RTOS', 'Operating System / Real-Time Operating System'],
+      ['CLI / GUI', 'Command Line Interface / Graphical User Interface']
+    ],
+    confused: [
+      ['Storage Media vs. RAM', 'Storage media is non-volatile (permanent); RAM is erased when power turns off.'],
+      ['Magnetic Tape vs. HDD', 'Magnetic Tape uses sequential access; HDD uses direct random access.'],
+      ['TN vs. IPS vs. VA', 'TN = Speed; IPS = Colors & Viewing Angles; VA = Contrast & Deep Black.'],
+      ['CLI vs. GUI', 'CLI = typed commands (MS-DOS); GUI = mouse, icons, windows, touch (Windows/macOS/Android).'],
+      ['Batch OS vs. RTOS', 'Batch runs grouped jobs with no interaction; RTOS guarantees strict instant response (airplanes, medical devices).']
+    ]
+  }
+};
+
+/* ==========================================================================
+   M<>S | History of Technology — Memorization Flashcards (js/flashcards.js)
+   Randomized order, English front/back, separate Arabic toggle, repeat difficult.
+   ========================================================================== */
+
+window.MSHOT_FLASHCARDS = (function () {
+  var deck = [];
+  var idx = 0;
+  var flipped = false;
+  var showArabic = false;
+  var difficultOnly = false;
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function rebuild() {
+    var st = window.MSHOT_STORAGE.load().flashStatus || {};
+    var pool = window.MSHOT_DATA.qa.slice();
+    if (difficultOnly) {
+      pool = pool.filter(function (q) { return st[q.id] === 'practice' || st[q.id] === 'review'; });
+    }
+    deck = shuffle(pool);
+    idx = 0;
+    flipped = false;
+    showArabic = false;
+  }
+
+  function ensure() { if (!deck.length && !difficultOnly) rebuild(); }
+
+  return {
+    getState: function () {
+      ensure();
+      var st = window.MSHOT_STORAGE.load().flashStatus || {};
+      var cur = deck[idx] || null;
+      return {
+        current: cur,
+        index: idx,
+        total: deck.length,
+        flipped: flipped,
+        showArabic: showArabic,
+        difficultOnly: difficultOnly,
+        status: cur ? (st[cur.id] || '') : ''
+      };
+    },
+    flip: function () { flipped = !flipped; },
+    toggleArabic: function () { showArabic = !showArabic; },
+    next: function () { if (idx < deck.length - 1) { idx++; flipped = false; showArabic = false; } },
+    prev: function () { if (idx > 0) { idx--; flipped = false; showArabic = false; } },
+    shuffleDeck: function () { rebuild(); },
+    toggleDifficultOnly: function () { difficultOnly = !difficultOnly; rebuild(); },
+    mark: function (val) {
+      var cur = deck[idx];
+      if (!cur) return;
+      window.MSHOT_STORAGE.update(function (s) {
+        window.MSHOT_STORAGE.touchStreak(s);
+        s.flashStatus[cur.id] = val;
+      });
+      if (idx < deck.length - 1) { idx++; flipped = false; showArabic = false; }
+    }
+  };
+})();
+
+/* ==========================================================================
+   M<>S | History of Technology — Instant-Feedback Quiz Engine (js/quiz.js)
+   CRITICAL: Immediate verification on click, locked answer after selection,
+   randomized questions & shuffled options with accurate correct mapping.
+   ========================================================================== */
+
+window.MSHOT_QUIZ = (function () {
+  var session = null;
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function shuffleOptions(q) {
+    var indexed = q.opts.map(function (text, i) { return { text: text, ok: i === q.correct }; });
+    var sh = shuffle(indexed);
+    return Object.assign({}, q, {
+      opts: sh.map(function (x) { return x.text; }),
+      correct: sh.findIndex(function (x) { return x.ok; })
+    });
+  }
+
+  function start(cfg) {
+    var pool = window.MSHOT_DATA.quizBank.filter(function (q) {
+      if (cfg.onlyIds) return cfg.onlyIds.indexOf(q.id) !== -1;
+      if (cfg.section && cfg.section !== 'all' && q.section !== cfg.section) return false;
+      return true;
+    });
+    if (!pool.length) return null;
+
+    var chosen = shuffle(pool).slice(0, Math.min(cfg.count || 10, pool.length)).map(shuffleOptions);
+    session = {
+      cfg: Object.assign({}, cfg),
+      questions: chosen,
+      index: 0,
+      locked: {},     /* qId -> { picked, isCorrect } */
+      score: 0,
+      wrongIds: [],
+      finished: false
+    };
+    return session;
+  }
+
+  /* Instant Evaluation — no Submit button required, locks question immediately */
+  function selectOption(optIdx) {
+    if (!session || session.finished) return null;
+    var q = session.questions[session.index];
+    if (!q || session.locked[q.id]) return null; /* Prevent changing answer repeatedly */
+
+    var isCorrect = Number(optIdx) === Number(q.correct);
+    session.locked[q.id] = { picked: Number(optIdx), isCorrect: isCorrect };
+    if (isCorrect) session.score += 1;
+    else session.wrongIds.push(q.id);
+
+    window.MSHOT_STORAGE.recordQuizAnswer(q.id, isCorrect, q.opts[optIdx]);
+    return session.locked[q.id];
+  }
+
+  function next() {
+    if (!session) return;
+    if (session.index < session.questions.length - 1) {
+      session.index += 1;
+    } else if (!session.finished) {
+      session.finished = true;
+      var total = session.questions.length;
+      var pct = total ? Math.round((session.score / total) * 100) : 0;
+      window.MSHOT_STORAGE.update(function (s) {
+        s.quizHistory.unshift({
+          ts: Date.now(),
+          section: session.cfg.section || 'all',
+          total: total,
+          correct: session.score,
+          wrong: total - session.score,
+          pct: pct
+        });
+      });
+    }
+  }
+
+  return {
+    shuffleOptions: shuffleOptions,
+    start: start,
+    selectOption: selectOption,
+    next: next,
+    getSession: function () { return session; },
+    clear: function () { session = null; }
+  };
+})();
+
+/* ==========================================================================
+   M<>S | History of Technology — Smart Practice Engine (js/practice.js)
+   7 Practice Methods:
+   1. Q&A Recall | 2. MCQ | 3. True/False | 4. Fill in Blank
+   5. Match Terms | 6. Arrange in Order (5 PDF sequences) | 7. Wrong Answers
+   ========================================================================== */
+
+window.MSHOT_PRACTICE = (function () {
+  var mode = 'qa';
+  var idx = 0;
+  var revealed = false;
+  var currentFeedback = null;
+  var shuffledMcq = null;
+  var matchSetIdx = 0;
+  var matchDefs = [];
+  var matchPickedTerm = null;
+  var matchPairs = {};
+  var matchValidated = false;
+  var orderSetIdx = 0;
+  var orderWorking = [];
+  var orderChecked = false;
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function initMatch() {
+    var set = window.MSHOT_DATA.matchSets[matchSetIdx];
+    matchDefs = shuffle(set.pairs.map(function (p) { return { id: p.id, def: p.def }; }));
+    matchPickedTerm = null;
+    matchPairs = {};
+    matchValidated = false;
+  }
+
+  function initOrder() {
+    var set = window.MSHOT_DATA.orderSets[orderSetIdx];
+    orderWorking = shuffle(set.items);
+    if (orderWorking.join('|') === set.items.join('|') && orderWorking.length > 1) {
+      var tmp = orderWorking[0]; orderWorking[0] = orderWorking[1]; orderWorking[1] = tmp;
+    }
+    orderChecked = false;
+  }
+
+  function initMcq() {
+    var bank = window.MSHOT_DATA.quizBank;
+    shuffledMcq = window.MSHOT_QUIZ.shuffleOptions(bank[idx % bank.length]);
+  }
+
+  function setMode(m) {
+    mode = m;
+    idx = 0;
+    revealed = false;
+    currentFeedback = null;
+    if (m === 'mcq') initMcq();
+    if (m === 'match') initMatch();
+    if (m === 'order') initOrder();
+  }
+
+  function norm(s) { return String(s || '').trim().toLowerCase().replace(/\s+/g, ' '); }
+
+  return {
+    getState: function () {
+      if (mode === 'mcq' && !shuffledMcq) initMcq();
+      if (mode === 'match' && !matchDefs.length) initMatch();
+      if (mode === 'order' && !orderWorking.length) initOrder();
+      return {
+        mode: mode, idx: idx, revealed: revealed, feedback: currentFeedback,
+        mcqItem: shuffledMcq,
+        matchSet: window.MSHOT_DATA.matchSets[matchSetIdx],
+        matchSetIdx: matchSetIdx,
+        matchDefs: matchDefs, matchPickedTerm: matchPickedTerm, matchPairs: matchPairs, matchValidated: matchValidated,
+        orderSet: window.MSHOT_DATA.orderSets[orderSetIdx],
+        orderSetIdx: orderSetIdx,
+        orderWorking: orderWorking, orderChecked: orderChecked
+      };
+    },
+    setMode: setMode,
+    toggleReveal: function () { revealed = !revealed; },
+    nextItem: function () {
+      idx += 1;
+      revealed = false;
+      currentFeedback = null;
+      if (mode === 'mcq') initMcq();
+    },
+    checkMcq: function (optIdx) {
+      if (!shuffledMcq || currentFeedback) return;
+      var ok = Number(optIdx) === Number(shuffledMcq.correct);
+      currentFeedback = { ok: ok, picked: Number(optIdx), exp: shuffledMcq.exp };
+      window.MSHOT_STORAGE.recordQuizAnswer(shuffledMcq.id, ok, shuffledMcq.opts[optIdx]);
+    },
+    checkTf: function (val) {
+      var item = window.MSHOT_DATA.tfBank[idx % window.MSHOT_DATA.tfBank.length];
+      var ok = Boolean(val) === Boolean(item.ans);
+      currentFeedback = { ok: ok, picked: val, exp: item.exp };
+      window.MSHOT_STORAGE.recordQuizAnswer(item.id, ok, String(val));
+    },
+    checkFill: function (txt) {
+      var item = window.MSHOT_DATA.fillBank[idx % window.MSHOT_DATA.fillBank.length];
+      var ok = item.ans.some(function (a) { return norm(a) === norm(txt); });
+      currentFeedback = { ok: ok, display: item.display, exp: item.exp };
+      window.MSHOT_STORAGE.recordQuizAnswer(item.id, ok, txt);
+    },
+    pickMatchTerm: function (tid) { if (!matchValidated) matchPickedTerm = tid; },
+    pickMatchDef: function (did) {
+      if (matchValidated || !matchPickedTerm) return;
+      Object.keys(matchPairs).forEach(function (k) { if (matchPairs[k] === did) delete matchPairs[k]; });
+      matchPairs[matchPickedTerm] = did;
+      matchPickedTerm = null;
+    },
+    validateMatch: function () { matchValidated = true; },
+    switchMatchSet: function (i) { matchSetIdx = i; initMatch(); },
+    moveOrder: function (pos, dir) {
+      if (orderChecked) return;
+      var target = pos + dir;
+      if (target < 0 || target >= orderWorking.length) return;
+      var tmp = orderWorking[pos]; orderWorking[pos] = orderWorking[target]; orderWorking[target] = tmp;
+    },
+    checkOrder: function () { orderChecked = true; },
+    switchOrderSet: function (i) { orderSetIdx = i; initOrder(); }
+  };
+})();
+
+/* ==========================================================================
+   M<>S | History of Technology — Main UI Orchestrator (js/app.js)
+   Renders all 8 pages in both Multi-Page Static mode & Canvas SPA mode.
+   ========================================================================== */
+
+window.MSHOT_APP = (function () {
+  var ui = {
+    page: 'home',
+    section: 's1',
+    showAns: {},
+    showAr: {},
+    understandIdx: 0
+  };
+
+  function esc(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function toast(msg) {
+    var el = document.getElementById('mshot-toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(function () { el.classList.remove('show'); }, 2200);
+  }
+
+  function isSpa() { return document.body.getAttribute('data-mode') === 'spa'; }
+
+  function go(page, secId) {
+    if (secId) {
+      ui.section = secId;
+      window.MSHOT_STORAGE.update(function (s) { s.lastSection = secId; });
+    }
+    if (isSpa()) {
+      ui.page = page;
+      document.querySelectorAll('.spa-view').forEach(function (v) { v.classList.toggle('active', v.id === 'page-' + page); });
+      document.querySelectorAll('[data-nav]').forEach(function (n) { n.classList.toggle('active', n.getAttribute('data-nav') === page); });
+      var dr = document.getElementById('mobile-drawer');
+      if (dr) dr.classList.remove('open');
+      renderCurrent();
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      return;
+    }
+    var inSub = window.location.pathname.indexOf('/pages/') !== -1;
+    var target = page === 'home' ? (inSub ? '../index.html' : 'index.html') : (inSub ? page + '.html' : 'pages/' + page + '.html');
+    if (secId) target += '?sec=' + encodeURIComponent(secId);
+    window.location.href = target;
+  }
+
+  /* ==================== EDUCATIONAL SVG DIAGRAMS ==================== */
+  function renderDiagram(key) {
+    if (key === 'it-ages') {
+      return svgWrap('<svg viewBox="0 0 640 110" role="img" aria-label="Four Ages of IT">' +
+        sBox(8, 20, 145, '1. Premechanical', '3000 BC–1450 (Abacus)') + sArr(155, 50, 170, 50) +
+        sBox(172, 20, 145, '2. Mechanical', '1450–1840 (Gutenberg)') + sArr(319, 50, 334, 50) +
+        sBox(336, 20, 145, '3. Electromech.', '1840–1940 (Bell/Morse)') + sArr(483, 50, 498, 50) +
+        sBox(500, 20, 132, '4. Electronic', '1940–now (ENIAC)', true) + '</svg>');
+    }
+    if (key === 'storage-evo') {
+      return svgWrap('<svg viewBox="0 0 640 110" role="img" aria-label="HDD vs SSD Comparison">' +
+        sBox(12, 18, 290, 'HDD (Magnetic Platters)', '5400/7200 RPM · Moving parts · Cheaper/GB') +
+        sBox(338, 18, 290, 'SSD (Flash Memory Chips)', 'Much faster · Silent · No moving parts', true) + '</svg>');
+    }
+    if (key === 'hdd-parts') {
+      return svgWrap('<svg viewBox="0 0 640 120" role="img" aria-label="HDD Core Components">' +
+        '<circle cx="105" cy="60" r="46" fill="#232522" stroke="#8FA67B" stroke-width="2"/>' +
+        '<circle cx="105" cy="60" r="14" fill="#4A5D3B"/>' +
+        '<text x="105" y="64" text-anchor="middle" fill="#FCFBF8" font-size="9">Spindle</text>' +
+        '<line x1="180" y1="90" x2="122" y2="52" stroke="#8FA67B" stroke-width="4"/>' +
+        sBox(215, 18, 195, 'Platters & Spindle', 'Track -> Sector (512B) -> Cylinder') +
+        sBox(425, 18, 200, 'Heads, Arm & Logic Board', 'SATA (thin/fast) vs IDE (wide)', true) + '</svg>');
+    }
+    if (key === 'monitors-evo') {
+      return svgWrap('<svg viewBox="0 0 640 110" role="img" aria-label="Monitor Evolution">' +
+        sBox(8, 20, 145, 'CRT', 'Heavy tube, high power') + sArr(155, 50, 170, 50) +
+        sBox(172, 20, 145, 'LCD (TN/IPS/VA)', 'Thin, fluorescent light') + sArr(319, 50, 334, 50) +
+        sBox(336, 20, 145, 'LED Monitor', 'LED backlight, brighter') + sArr(483, 50, 498, 50) +
+        sBox(500, 20, 132, 'OLED', 'True black per pixel', true) + '</svg>');
+    }
+    if (key === 'mobo-layout') {
+      return svgWrap('<svg viewBox="0 0 640 110" role="img" aria-label="Motherboard Form Factors">' +
+        sBox(10, 20, 145, 'XT / AT (1981–84)', 'Large early boards') + sArr(157, 50, 172, 50) +
+        sBox(174, 20, 145, 'Baby AT / LPX', 'Smaller & slim') + sArr(321, 50, 336, 50) +
+        sBox(338, 20, 145, 'ATX (1995 Intel)', '305x244mm standard', true) + sArr(485, 50, 500, 50) +
+        sBox(502, 20, 128, 'Micro / Mini-ITX', 'Compact PCs') + '</svg>');
+    }
+    if (key === 'os-evo') {
+      return svgWrap('<svg viewBox="0 0 640 110" role="img" aria-label="OS Evolution">' +
+        sBox(8, 20, 145, 'No OS / Batch', '1940s–50s') + sArr(155, 50, 170, 50) +
+        sBox(172, 20, 145, 'Time-Sharing', 'UNIX (1969)') + sArr(319, 50, 334, 50) +
+        sBox(336, 20, 145, 'PC & GUI OS', 'DOS, Mac, Win95, Linux') + sArr(483, 50, 498, 50) +
+        sBox(500, 20, 132, 'Modern & Mobile', 'iOS (07), Android (08)', true) + '</svg>');
+    }
+    return '';
+  }
+  function svgWrap(inner) { return '<div class="card-beige" style="margin:12px 0;overflow-x:auto;">' + inner + '</div>'; }
+  function sBox(x, y, w, a, b, hi) {
+    return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="60" rx="4" fill="' + (hi ? '#4A5D3B' : '#232522') + '" stroke="#8FA67B" stroke-width="1"/>' +
+           '<text x="' + (x + w / 2) + '" y="' + (y + 25) + '" text-anchor="middle" fill="#FCFBF8" font-size="11" font-weight="700">' + a + '</text>' +
+           '<text x="' + (x + w / 2) + '" y="' + (y + 44) + '" text-anchor="middle" fill="#D8D3C6" font-size="9">' + b + '</text>';
+  }
+  function sArr(x1, y1, x2, y2) {
+    return '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#4A5D3B" stroke-width="2"/>';
+  }
+
+  function renderTable(tbl) {
+    if (!tbl) return '';
+    return '<div class="table-wrap"><table class="table"><thead><tr>' +
+      tbl.headers.map(function (h) { return '<th>' + esc(h) + '</th>'; }).join('') +
+      '</tr></thead><tbody>' +
+      tbl.rows.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + esc(c) + '</td>'; }).join('') + '</tr>'; }).join('') +
+      '</tbody></table></div>';
+  }
+
+  function syncChrome() {
+    var t = window.MSHOT_I18N.t;
+    var th = window.MSHOT_STORAGE.load().theme || 'light';
+    document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-i18n')); });
+    var lb = document.getElementById('btn-lang'); if (lb) lb.textContent = t('langSwitch');
+    var tb = document.getElementById('btn-theme'); if (tb) tb.textContent = th === 'light' ? t('themeDark') : t('themeLight');
+  }
+
+  /* ==================== A. HOME / DASHBOARD ==================== */
+  function renderHome() {
+    var root = document.getElementById('page-home');
+    if (!root) return;
+    var t = window.MSHOT_I18N.t, lang = window.MSHOT_I18N.getLang(), st = window.MSHOT_STORAGE.load();
+    var totalQ = window.MSHOT_DATA.qa.length;
+    var doneCount = (st.understood || []).length;
+    var remCount = Math.max(0, totalQ - doneCount);
+    var pct = Math.round((doneCount / Math.max(1, totalQ)) * 100);
+    var wrongCount = Object.keys(st.mistakes || {}).filter(function (k) { return !st.mistakes[k].resolved; }).length;
+
+    root.innerHTML =
+      '<section class="hero">' +
+        '<div>' +
+          '<div class="eyebrow">M&lt;&gt;S &middot; ' + t('courseTag') + '</div>' +
+          '<h1 class="page-title">' + t('welcomeTitle') + '</h1>' +
+          '<p class="page-sub">' + t('welcomeSub') + '</p>' +
+        '</div>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0;">' +
+          '<button class="btn btn-primary" data-jump="study" data-sec="' + esc(st.lastSection || 's1') + '">' + t('continueLearning') + '</button>' +
+          '<button class="btn btn-secondary" data-jump="quiz">' + t('startQuizBtn') + '</button>' +
+          '<button class="btn btn-secondary" data-jump="revision">' + t('quickRevisionBtn') + '</button>' +
+        '</div>' +
+      '</section>' +
+
+      '<section class="stats-grid">' +
+        '<div class="stat-card"><div class="stat-k">' + t('statOverall') + '</div><div class="stat-v">' + pct + '%</div></div>' +
+        '<div class="stat-card"><div class="stat-k">' + t('statCompleted') + '</div><div class="stat-v">' + doneCount + '/' + totalQ + '</div></div>' +
+        '<div class="stat-card"><div class="stat-k">' + t('statRemaining') + '</div><div class="stat-v">' + remCount + '</div></div>' +
+        '<div class="stat-card"><div class="stat-k">' + t('statWrong') + '</div><div class="stat-v">' + wrongCount + '</div></div>' +
+        '<div class="stat-card"><div class="stat-k">' + t('statStreak') + '</div><div class="stat-v">' + (st.streak || 0) + ' <span style="font-size:0.82rem;color:var(--text-muted);">' + t('days') + '</span></div></div>' +
+      '</section>' +
+
+      '<div class="card" style="margin-bottom:20px;">' +
+        '<h2 style="margin:0 0 12px;font-size:1.02rem;">' + t('allModes') + '</h2>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:8px;">' +
+          '<button class="btn btn-secondary btn-sm" data-jump="study">' + t('navStudy') + '</button>' +
+          '<button class="btn btn-secondary btn-sm" data-jump="understanding">' + t('navUnderstand') + '</button>' +
+          '<button class="btn btn-secondary btn-sm" data-jump="flashcards">' + t('navFlashcards') + '</button>' +
+          '<button class="btn btn-primary btn-sm" data-jump="quiz">' + t('navQuiz') + '</button>' +
+          '<button class="btn btn-secondary btn-sm" data-jump="practice">' + t('navPractice') + '</button>' +
+          '<button class="btn btn-secondary btn-sm" data-jump="revision">' + t('navRevision') + '</button>' +
+          '<button class="btn btn-secondary btn-sm" data-jump="progress">' + t('navProgress') + '</button>' +
+        '</div>' +
+      '</div>' +
+
+      '<h2 style="margin:0 0 12px;font-size:1.08rem;">' + t('sectionsTitle') + '</h2>' +
+      '<div class="grid-3">' + window.MSHOT_DATA.sections.map(function (sec) {
+        var qs = window.MSHOT_DATA.qa.filter(function (q) { return q.section === sec.id; });
+        var d = qs.filter(function (q) { return (st.understood || []).indexOf(q.id) !== -1; }).length;
+        var sp = Math.round((d / Math.max(1, qs.length)) * 100);
+        return '<div class="card" style="display:flex;flex-direction:column;gap:10px;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;"><span class="eyebrow">SECTION ' + sec.num + '</span><span class="badge badge-beige">' + d + '/' + qs.length + ' (' + sp + '%)</span></div>' +
+          '<h3 style="margin:0;font-size:1.05rem;">' + esc(lang === 'ar' ? sec.titleAr : sec.titleEn) + '</h3>' +
+          '<p style="margin:0;font-size:0.86rem;color:var(--text-muted);flex:1;">' + esc(lang === 'ar' ? sec.introAr : sec.introEn) + '</p>' +
+          '<div class="progress-track"><div class="progress-fill" style="width:' + sp + '%;"></div></div>' +
+          '<button class="btn btn-primary btn-sm" style="align-self:flex-start;" data-jump="study" data-sec="' + sec.id + '">' + t('openSection') + '</button>' +
+        '</div>';
+      }).join('') + '</div>';
+
+    root.querySelectorAll('[data-jump]').forEach(function (b) {
+      b.addEventListener('click', function () { go(b.getAttribute('data-jump'), b.getAttribute('data-sec')); });
+    });
+  }
+
+  /* ==================== B. STUDY SECTIONS ==================== */
+  function renderStudy() {
+    var root = document.getElementById('page-study');
+    if (!root) return;
+    var t = window.MSHOT_I18N.t, lang = window.MSHOT_I18N.getLang(), st = window.MSHOT_STORAGE.load();
+    var sec = window.MSHOT_DATA.sections.find(function (s) { return s.id === ui.section; }) || window.MSHOT_DATA.sections[0];
+    var qs = window.MSHOT_DATA.qa.filter(function (q) { return q.section === sec.id; });
+    var doneN = qs.filter(function (q) { return (st.understood || []).indexOf(q.id) !== -1; }).length;
+
+    root.innerHTML =
+      '<div class="page-head">' +
+        '<div class="eyebrow">M&lt;&gt;S · ' + t('navStudy') + '</div>' +
+        '<h1 class="page-title">' + t('studyTitle') + '</h1>' +
+        '<p class="page-sub">' + t('studySub') + '</p>' +
+      '</div>' +
+
+      '<div class="tabs">' + window.MSHOT_DATA.sections.map(function (s) {
+        return '<button class="tab ' + (s.id === sec.id ? 'active' : '') + '" data-sec-tab="' + s.id + '">' + s.num + '. ' + esc(lang === 'ar' ? s.titleAr : s.titleEn) + '</button>';
+      }).join('') + '</div>' +
+
+      '<div class="card" style="margin-bottom:18px;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px;">' +
+          '<h2 style="margin:0;font-size:1.3rem;">' + sec.num + ') ' + esc(lang === 'ar' ? sec.titleAr : sec.titleEn) + '</h2>' +
+          '<span class="badge badge-olive">' + doneN + '/' + qs.length + ' ' + t('understood') + '</span>' +
+        '</div>' +
+        '<p style="margin:0 0 10px;color:var(--text-muted);">' + esc(lang === 'ar' ? sec.introAr : sec.introEn) + '</p>' +
+        renderDiagram(sec.diagram) +
+        '<div style="margin-top:10px;"><strong>' + t('keyTerms') + ':</strong> <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">' +
+          sec.terms.map(function (tm) { return '<span class="badge badge-beige">' + esc(tm) + '</span>'; }).join('') + '</div></div>' +
+        '<div style="margin-top:12px;"><strong>' + t('keyPoints') + ':</strong><ul style="margin:6px 0 0;padding-inline-start:20px;">' +
+          (lang === 'ar' ? sec.keyPointsAr : sec.keyPointsEn).map(function (k) { return '<li>' + esc(k) + '</li>'; }).join('') + '</ul></div>' +
+      '</div>' +
+
+      qs.map(function (q, i) {
+        var ansOpen = ui.showAns[q.id] !== false; /* default open for comfortable studying, collapsible */
+        var arOpen = ui.showAr[q.id] !== false;
+        var isUnd = (st.understood || []).indexOf(q.id) !== -1;
+        var isFav = (st.favorites || []).indexOf(q.id) !== -1;
+        return '<article class="qa-card">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">' +
+            '<span class="badge badge-beige">Q' + (i + 1) + ' · ' + esc(q.page) + '</span>' +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+              '<button class="btn btn-secondary btn-sm" data-tog-ans="' + q.id + '">' + (ansOpen ? t('hideAnswer') : t('showAnswer')) + '</button>' +
+              '<button class="btn btn-secondary btn-sm" data-tog-ar="' + q.id + '">' + (arOpen ? t('hideArabic') : t('showArabic')) + '</button>' +
+              '<button class="btn btn-sm ' + (isUnd ? 'btn-primary' : 'btn-secondary') + '" data-und="' + q.id + '">' + (isUnd ? '&#10003; ' + t('understood') : t('markUnderstood')) + '</button>' +
+              '<button class="btn btn-sm ' + (isFav ? 'btn-primary' : 'btn-secondary') + '" data-fav="' + q.id + '">' + (isFav ? '&#9733;' : '&#9734;') + '</button>' +
+            '</div>' +
+          '</div>' +
+          '<h3 style="margin:0;font-size:1.05rem;">' + esc(q.question_en) + '</h3>' +
+          (lang === 'ar' ? '<div style="font-size:0.88rem;color:var(--text-muted);margin-top:4px;">' + esc(q.question_ar) + '</div>' : '') +
+          (ansOpen ? '<div class="qa-ans">' + esc(q.answer_en) + renderTable(q.table) + '</div>' : '') +
+          (arOpen ? '<div class="qa-ar"><strong>الشرح:</strong><br>' + esc(q.explanation_ar) + '</div>' : '') +
+        '</article>';
+      }).join('');
+
+    root.querySelectorAll('[data-sec-tab]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        ui.section = b.getAttribute('data-sec-tab');
+        window.MSHOT_STORAGE.update(function (s) { s.lastSection = ui.section; });
+        renderStudy();
+      });
+    });
+    root.querySelectorAll('[data-tog-ans]').forEach(function (b) {
+      b.addEventListener('click', function () { var id = b.getAttribute('data-tog-ans'); ui.showAns[id] = ui.showAns[id] === false ? true : false; renderStudy(); });
+    });
+    root.querySelectorAll('[data-tog-ar]').forEach(function (b) {
+      b.addEventListener('click', function () { var id = b.getAttribute('data-tog-ar'); ui.showAr[id] = ui.showAr[id] === false ? true : false; renderStudy(); });
+    });
+    root.querySelectorAll('[data-und]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var id = b.getAttribute('data-und');
+        window.MSHOT_STORAGE.update(function (s) {
+          window.MSHOT_STORAGE.touchStreak(s);
+          var i = s.understood.indexOf(id);
+          if (i === -1) s.understood.push(id); else s.understood.splice(i, 1);
+        });
+        renderStudy();
+      });
+    });
+    root.querySelectorAll('[data-fav]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var id = b.getAttribute('data-fav');
+        window.MSHOT_STORAGE.update(function (s) {
+          var i = s.favorites.indexOf(id);
+          if (i === -1) s.favorites.push(id); else s.favorites.splice(i, 1);
+        });
+        renderStudy();
+      });
+    });
+  }
+
+  /* ==================== C. UNDERSTANDING MODE ==================== */
+  function renderUnderstanding() {
+    var root = document.getElementById('page-understanding');
+    if (!root) return;
+    var t = window.MSHOT_I18N.t;
+    var all = window.MSHOT_DATA.qa;
+    var q = all[ui.understandIdx % all.length];
+
+    root.innerHTML =
+      '<div class="page-head">' +
+        '<div class="eyebrow">M&lt;&gt;S · ' + t('navUnderstand') + '</div>' +
+        '<h1 class="page-title">' + t('understandTitle') + '</h1>' +
+        '<p class="page-sub">' + t('understandSub') + '</p>' +
+      '</div>' +
+      '<div class="card">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">' +
+          '<span class="badge badge-beige">' + (ui.understandIdx + 1) + ' / ' + all.length + ' · ' + esc(q.page) + '</span>' +
+          '<span class="badge badge-olive">' + esc(q.section.toUpperCase()) + '</span>' +
+        '</div>' +
+        '<h2 style="margin:0 0 6px;font-size:1.25rem;">' + esc(q.question_en) + '</h2>' +
+        '<p style="margin:0 0 12px;color:var(--text-muted);">' + esc(q.question_ar) + '</p>' +
+        '<div class="qa-ans"><strong>English Answer:</strong><br>' + esc(q.answer_en) + renderTable(q.table) + '</div>' +
+        '<div class="qa-ar"><strong>الشرح المبسط بالعربي:</strong><br>' + esc(q.explanation_ar) + '</div>' +
+        '<div style="margin-top:14px;"><strong>' + t('keywordsLabel') + ':</strong><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">' +
+          (q.keywords || []).map(function (k) { return '<span class="badge badge-olive">' + esc(k) + '</span>'; }).join('') + '</div></div>' +
+        '<div style="display:flex;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);">' +
+          '<button class="btn btn-secondary" id="und-prev" ' + (ui.understandIdx === 0 ? 'disabled' : '') + '>&larr; ' + t('prevQ') + '</button>' +
+          '<button class="btn btn-primary" id="und-next">' + t('nextQ') + ' &rarr;</button>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('und-prev').addEventListener('click', function () { if (ui.understandIdx > 0) { ui.understandIdx--; renderUnderstanding(); } });
+    document.getElementById('und-next').addEventListener('click', function () { ui.understandIdx = (ui.understandIdx + 1) % all.length; renderUnderstanding(); });
+  }
+
+  /* ==================== D. MEMORIZATION MODE (FLASHCARDS) ==================== */
+  function renderFlashcards() {
+    var root = document.getElementById('page-flashcards');
+    if (!root) return;
+    var t = window.MSHOT_I18N.t;
+    var fc = window.MSHOT_FLASHCARDS.getState();
+    var c = fc.current;
+
+    root.innerHTML =
+      '<div class="page-head">' +
+        '<div class="eyebrow">M&lt;&gt;S · ' + t('navFlashcards') + '</div>' +
+        '<h1 class="page-title">' + t('flashTitle') + '</h1>' +
+        '<p class="page-sub">' + t('flashSub') + '</p>' +
+      '</div>' +
+      '<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;">' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+          '<button class="btn btn-secondary btn-sm" id="fc-shuf">' + t('shuffleCards') + '</button>' +
+          '<button class="btn btn-sm ' + (fc.difficultOnly ? 'btn-primary' : 'btn-secondary') + '" id="fc-diff">' + (fc.difficultOnly ? t('showAllCards') : t('repeatDifficult')) + '</button>' +
+        '</div>' +
+        '<span class="badge badge-beige">' + (fc.total ? (fc.index + 1) + ' / ' + fc.total : '0 / 0') + '</span>' +
+      '</div>' +
+      (c ? '<div class="flash-box" id="fc-card">' +
+        '<div class="eyebrow">' + (fc.flipped ? 'ENGLISH ANSWER (BACK)' : 'ENGLISH QUESTION (FRONT)') + ' · ' + esc(c.page) + '</div>' +
+        '<div style="font-size:' + (fc.flipped ? '0.98rem' : '1.25rem') + ';font-weight:' + (fc.flipped ? '500' : '700') + ';white-space:pre-line;">' + esc(fc.flipped ? c.answer_en : c.question_en) + '</div>' +
+        '<div style="font-size:0.78rem;color:var(--text-muted);">' + t('flipCard') + '</div>' +
+      '</div>' +
+      '<div style="max-width:680px;margin:0 auto 14px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">' +
+        '<button class="btn btn-secondary btn-sm" id="fc-ar-btn">' + (fc.showArabic ? t('hideArabic') : t('showArabic')) + '</button>' +
+      '</div>' +
+      (fc.showArabic ? '<div class="qa-ar" style="max-width:680px;margin:0 auto 16px;">' + esc(c.explanation_ar) + '</div>' : '') +
+      '<div style="display:flex;justify-content:center;flex-wrap:wrap;gap:8px;">' +
+        '<button class="btn btn-secondary" id="fc-prev" ' + (fc.index === 0 ? 'disabled' : '') + '>&larr; ' + t('prevQ') + '</button>' +
+        '<button class="btn btn-primary" id="fc-know">&#10003; ' + t('iKnow') + '</button>' +
+        '<button class="btn btn-secondary" id="fc-prac">' + t('needPractice') + '</button>' +
+        '<button class="btn btn-danger" id="fc-rev">' + t('reviewAgain') + '</button>' +
+        '<button class="btn btn-secondary" id="fc-next" ' + (fc.index >= fc.total - 1 ? 'disabled' : '') + '>' + t('nextQ') + ' &rarr;</button>' +
+      '</div>' : '<div class="empty-box">' + t('emptyHere') + '</div>');
+
+    document.getElementById('fc-shuf').addEventListener('click', function () { window.MSHOT_FLASHCARDS.shuffleDeck(); renderFlashcards(); });
+    document.getElementById('fc-diff').addEventListener('click', function () { window.MSHOT_FLASHCARDS.toggleDifficultOnly(); renderFlashcards(); });
+    var fcEl = document.getElementById('fc-card'); if (fcEl) fcEl.addEventListener('click', function () { window.MSHOT_FLASHCARDS.flip(); renderFlashcards(); });
+    var arB = document.getElementById('fc-ar-btn'); if (arB) arB.addEventListener('click', function () { window.MSHOT_FLASHCARDS.toggleArabic(); renderFlashcards(); });
+    var pB = document.getElementById('fc-prev'); if (pB) pB.addEventListener('click', function () { window.MSHOT_FLASHCARDS.prev(); renderFlashcards(); });
+    var nB = document.getElementById('fc-next'); if (nB) nB.addEventListener('click', function () { window.MSHOT_FLASHCARDS.next(); renderFlashcards(); });
+    var kB = document.getElementById('fc-know'); if (kB) kB.addEventListener('click', function () { window.MSHOT_FLASHCARDS.mark('know'); renderFlashcards(); });
+    var prB = document.getElementById('fc-prac'); if (prB) prB.addEventListener('click', function () { window.MSHOT_FLASHCARDS.mark('practice'); renderFlashcards(); });
+    var rB = document.getElementById('fc-rev'); if (rB) rB.addEventListener('click', function () { window.MSHOT_FLASHCARDS.mark('review'); renderFlashcards(); });
+  }
+
+  /* ==================== E. INSTANT-FEEDBACK QUIZ ==================== */
+  function renderQuiz() {
+    var root = document.getElementById('page-quiz');
+    if (!root) return;
+    var t = window.MSHOT_I18N.t, lang = window.MSHOT_I18N.getLang();
+    var sess = window.MSHOT_QUIZ.getSession();
+
+    if (!sess) {
+      root.innerHTML =
+        '<div class="page-head">' +
+          '<div class="eyebrow">M&lt;&gt;S · ' + t('navQuiz') + '</div>' +
+          '<h1 class="page-title">' + t('quizTitle') + '</h1>' +
+          '<p class="page-sub">' + t('quizSub') + '</p>' +
+        '</div>' +
+        '<div class="card">' +
+          '<div class="grid-2">' +
+            '<div><label style="font-size:0.84rem;font-weight:700;display:block;margin-bottom:6px;">' + t('selectSection') + '</label>' +
+              '<select id="qz-sec" class="select"><option value="all">' + t('allSections') + '</option>' +
+                window.MSHOT_DATA.sections.map(function (s) { return '<option value="' + s.id + '">' + s.num + '. ' + esc(lang === 'ar' ? s.titleAr : s.titleEn) + '</option>'; }).join('') +
+              '</select></div>' +
+            '<div><label style="font-size:0.84rem;font-weight:700;display:block;margin-bottom:6px;">' + t('numQuestions') + '</label>' +
+              '<select id="qz-cnt" class="select"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="26">All (26)</option></select></div>' +
+          '</div>' +
+          '<div style="margin-top:16px;"><button class="btn btn-primary" id="qz-start">' + t('startQuiz') + '</button></div>' +
+        '</div>';
+      document.getElementById('qz-start').addEventListener('click', function () {
+        window.MSHOT_QUIZ.start({ section: document.getElementById('qz-sec').value, count: Number(document.getElementById('qz-cnt').value) });
+        renderQuiz();
+      });
+      return;
+    }
+
+    if (sess.finished) {
+      var tot = sess.questions.length;
+      var pct = Math.round((sess.score / Math.max(1, tot)) * 100);
+      root.innerHTML =
+        '<div class="card">' +
+          '<div class="eyebrow">' + t('quizComplete') + '</div>' +
+          '<h2 class="page-title">' + sess.score + ' / ' + tot + ' (' + pct + '%)</h2>' +
+          '<p class="page-sub">' + t('correctAns') + ': ' + sess.score + ' · ' + t('wrongAns') + ': ' + (tot - sess.score) + '</p>' +
+          '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">' +
+            (sess.wrongIds.length ? '<button class="btn btn-primary" id="qz-retry-w">' + t('retryWrong') + ' (' + sess.wrongIds.length + ')</button>' : '') +
+            '<button class="btn btn-secondary" id="qz-retake">' + t('retakeQuiz') + '</button>' +
+          '</div>' +
+        '</div>';
+      var rw = document.getElementById('qz-retry-w');
+      if (rw) rw.addEventListener('click', function () { window.MSHOT_QUIZ.start({ onlyIds: sess.wrongIds, count: sess.wrongIds.length }); renderQuiz(); });
+      document.getElementById('qz-retake').addEventListener('click', function () { window.MSHOT_QUIZ.clear(); renderQuiz(); });
+      return;
+    }
+
+    var q = sess.questions[sess.index];
+    var lk = sess.locked[q.id];
+    var pctBar = Math.round(((sess.index + (lk ? 1 : 0)) / sess.questions.length) * 100);
+
+    root.innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
+        '<strong>Q ' + (sess.index + 1) + ' / ' + sess.questions.length + '</strong>' +
+        '<span class="badge badge-olive">' + t('correctAns') + ': ' + sess.score + '</span>' +
+      '</div>' +
+      '<div class="progress-track" style="margin-bottom:16px;"><div class="progress-fill" style="width:' + pctBar + '%;"></div></div>' +
+      '<div class="card">' +
+        '<span class="badge badge-beige">' + q.section.toUpperCase() + '</span>' +
+        '<h2 style="margin:10px 0 4px;font-size:1.12rem;">' + esc(q.q) + '</h2>' +
+        (lang === 'ar' ? '<p style="margin:0 0 8px;font-size:0.88rem;color:var(--text-muted);">' + esc(q.qAr) + '</p>' : '') +
+        '<div class="opt-list">' + q.opts.map(function (opt, oi) {
+          var cls = '';
+          if (lk) {
+            if (oi === q.correct) cls = ' ok';
+            else if (oi === lk.picked) cls = ' err';
+          }
+          return '<button class="opt-btn' + cls + '" data-qz-opt="' + oi + '" ' + (lk ? 'disabled' : '') + '>' +
+            '<span class="opt-key">' + String.fromCharCode(65 + oi) + '</span><span>' + esc(opt) + '</span></button>';
+        }).join('') + '</div>' +
+        (lk ? '<div class="fb-banner ' + (lk.isCorrect ? 'ok' : 'err') + '">' +
+          '<strong>' + (lk.isCorrect ? t('correctMsg') : t('wrongMsg')) + '</strong>' +
+          '<div style="margin-top:6px;">' + esc(q.exp) + '</div>' +
+        '</div>' +
+        '<div style="margin-top:16px;display:flex;justify-content:flex-end;">' +
+          '<button class="btn btn-primary" id="qz-next">' + (sess.index < sess.questions.length - 1 ? t('nextQuestion') + ' &rarr;' : t('seeResults')) + '</button>' +
+        '</div>' : '') +
+      '</div>';
+
+    root.querySelectorAll('[data-qz-opt]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        window.MSHOT_QUIZ.selectOption(Number(b.getAttribute('data-qz-opt')));
+        renderQuiz();
+      });
+    });
+    var nb = document.getElementById('qz-next');
+    if (nb) nb.addEventListener('click', function () { window.MSHOT_QUIZ.next(); renderQuiz(); });
+  }
+
+  /* ==================== F. SMART PRACTICE (7 MODES) ==================== */
+  function renderPractice() {
+    var root = document.getElementById('page-practice');
+    if (!root) return;
+    var t = window.MSHOT_I18N.t, lang = window.MSHOT_I18N.getLang();
+    var p = window.MSHOT_PRACTICE.getState();
+
+    var modes = [
+      ['qa', t('pmQa')], ['mcq', t('pmMcq')], ['tf', t('pmTf')], ['fill', t('pmFill')],
+      ['match', t('pmMatch')], ['order', t('pmOrder')], ['wrong', t('pmWrong')]
+    ];
+
+    var body = '';
+    if (p.mode === 'qa') {
+      var qa = window.MSHOT_DATA.qa[p.idx % window.MSHOT_DATA.qa.length];
+      body = '<div class="card"><span class="badge badge-beige">' + qa.page + '</span>' +
+        '<h3 style="margin:10px 0;">' + esc(qa.question_en) + '</h3>' +
+        (p.revealed ? '<div class="qa-ans">' + esc(qa.answer_en) + '</div><div class="qa-ar">' + esc(qa.explanation_ar) + '</div>' : '') +
+        '<div style="display:flex;gap:8px;margin-top:14px;"><button class="btn btn-secondary" id="pm-rev">' + t('revealAnswer') + '</button><button class="btn btn-primary" id="pm-next">' + t('nextItem') + ' &rarr;</button></div></div>';
+    } else if (p.mode === 'mcq') {
+      var m = p.mcqItem;
+      body = '<div class="card"><h3 style="margin:0 0 8px;">' + esc(m.q) + '</h3><div class="opt-list">' +
+        m.opts.map(function (o, oi) {
+          var cls = p.feedback ? (oi === m.correct ? ' ok' : (oi === p.feedback.picked ? ' err' : '')) : '';
+          return '<button class="opt-btn' + cls + '" data-pm-mcq="' + oi + '" ' + (p.feedback ? 'disabled' : '') + '><span class="opt-key">' + String.fromCharCode(65 + oi) + '</span><span>' + esc(o) + '</span></button>';
+        }).join('') + '</div>' +
+        (p.feedback ? '<div class="fb-banner ' + (p.feedback.ok ? 'ok' : 'err') + '">' + esc(p.feedback.exp) + '</div><div style="margin-top:12px;"><button class="btn btn-primary" id="pm-next">' + t('nextItem') + ' &rarr;</button></div>' : '') + '</div>';
+    } else if (p.mode === 'tf') {
+      var tf = window.MSHOT_DATA.tfBank[p.idx % window.MSHOT_DATA.tfBank.length];
+      body = '<div class="card"><h3 style="margin:0 0 12px;">' + esc(tf.q) + '</h3>' +
+        '<div style="display:flex;gap:10px;"><button class="btn btn-secondary" data-pm-tf="true" ' + (p.feedback ? 'disabled' : '') + '>True</button><button class="btn btn-secondary" data-pm-tf="false" ' + (p.feedback ? 'disabled' : '') + '>False</button></div>' +
+        (p.feedback ? '<div class="fb-banner ' + (p.feedback.ok ? 'ok' : 'err') + '"><strong>' + (p.feedback.ok ? t('correctMsg') : t('wrongMsg')) + '</strong><div>' + esc(p.feedback.exp) + '</div></div><div style="margin-top:12px;"><button class="btn btn-primary" id="pm-next">' + t('nextItem') + ' &rarr;</button></div>' : '') + '</div>';
+    } else if (p.mode === 'fill') {
+      var fb = window.MSHOT_DATA.fillBank[p.idx % window.MSHOT_DATA.fillBank.length];
+      body = '<div class="card"><h3 style="margin:0 0 12px;">' + esc(fb.q) + '</h3>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;"><input id="pm-fill-inp" class="input" style="max-width:300px;" placeholder="' + esc(t('typePlaceholder')) + '"><button class="btn btn-primary" id="pm-fill-chk">' + t('checkAnswer') + '</button></div>' +
+        (p.feedback ? '<div class="fb-banner ' + (p.feedback.ok ? 'ok' : 'err') + '"><strong>' + (p.feedback.ok ? t('correctMsg') : 'Answer: ' + esc(p.feedback.display)) + '</strong><div>' + esc(p.feedback.exp) + '</div></div><div style="margin-top:12px;"><button class="btn btn-primary" id="pm-next">' + t('nextItem') + ' &rarr;</button></div>' : '') + '</div>';
+    } else if (p.mode === 'match') {
+      var ms = p.matchSet;
+      body = '<div class="card">' +
+        '<div class="tabs">' + window.MSHOT_DATA.matchSets.map(function (s, i) { return '<button class="tab ' + (i === p.matchSetIdx ? 'active' : '') + '" data-mset="' + i + '">' + esc(lang === 'ar' ? s.titleAr : s.titleEn) + '</button>'; }).join('') + '</div>' +
+        '<div class="match-grid"><div>' + ms.pairs.map(function (pr, i) {
+          var cls = 'match-btn' + (p.matchPickedTerm === pr.id ? ' picking' : '') + (p.matchValidated ? (p.matchPairs[pr.id] === pr.id ? ' ok' : ' err') : (p.matchPairs[pr.id] ? ' paired' : ''));
+          return '<button class="' + cls + '" data-mt="' + pr.id + '">' + (i + 1) + '. ' + esc(pr.term) + '</button>';
+        }).join('') + '</div><div>' + p.matchDefs.map(function (df, i) {
+          var assigned = Object.keys(p.matchPairs).find(function (k) { return p.matchPairs[k] === df.id; });
+          var cls = 'match-btn' + (p.matchValidated ? (assigned === df.id ? ' ok' : ' err') : (assigned ? ' paired' : ''));
+          return '<button class="' + cls + '" data-md="' + df.id + '">#' + (i + 1) + ' ' + esc(df.def) + '</button>';
+        }).join('') + '</div></div>' +
+        '<div style="display:flex;gap:8px;margin-top:12px;"><button class="btn btn-primary btn-sm" id="pm-mval">' + t('validateMatches') + '</button><button class="btn btn-secondary btn-sm" id="pm-mrst">' + t('resetMatches') + '</button></div></div>';
+    } else if (p.mode === 'order') {
+      var os = p.orderSet;
+      body = '<div class="card">' +
+        '<div class="tabs">' + window.MSHOT_DATA.orderSets.map(function (s, i) { return '<button class="tab ' + (i === p.orderSetIdx ? 'active' : '') + '" data-oset="' + i + '">' + esc(lang === 'ar' ? s.titleAr : s.titleEn) + '</button>'; }).join('') + '</div>' +
+        p.orderWorking.map(function (item, i) {
+          var cls = 'order-item' + (p.orderChecked ? (item === os.items[i] ? ' ok' : ' err') : '');
+          return '<div class="' + cls + '"><span><strong>' + (i + 1) + '.</strong> ' + esc(item) + '</span>' +
+            '<div style="display:flex;gap:4px;"><button class="btn btn-secondary btn-sm" data-oup="' + i + '" ' + (i === 0 || p.orderChecked ? 'disabled' : '') + '>&uarr;</button>' +
+            '<button class="btn btn-secondary btn-sm" data-odn="' + i + '" ' + (i === p.orderWorking.length - 1 || p.orderChecked ? 'disabled' : '') + '>&darr;</button></div></div>';
+        }).join('') +
+        '<div style="display:flex;gap:8px;margin-top:12px;"><button class="btn btn-primary btn-sm" id="pm-ochk">' + t('checkOrder') + '</button><button class="btn btn-secondary btn-sm" id="pm-orst">' + t('resetMatches') + '</button></div></div>';
+    } else if (p.mode === 'wrong') {
+      var st = window.MSHOT_STORAGE.load();
+      var wIds = Object.keys(st.mistakes || {}).filter(function (k) { return !st.mistakes[k].resolved; });
+      body = wIds.length
+        ? '<div class="card"><p style="margin:0 0 12px;">' + wIds.length + ' ' + t('statWrong') + '</p><button class="btn btn-primary" id="pm-run-wrong">' + t('retryWrong') + '</button></div>'
+        : '<div class="empty-box">' + t('emptyHere') + '</div>';
+    }
+
+    root.innerHTML =
+      '<div class="page-head">' +
+        '<div class="eyebrow">M&lt;&gt;S · ' + t('navPractice') + '</div>' +
+        '<h1 class="page-title">' + t('practiceTitle') + '</h1>' +
+        '<p class="page-sub">' + t('practiceSub') + '</p>' +
+      '</div>' +
+      '<div class="tabs">' + modes.map(function (m) { return '<button class="tab ' + (p.mode === m[0] ? 'active' : '') + '" data-pmode="' + m[0] + '">' + esc(m[1]) + '</button>'; }).join('') + '</div>' +
+      body;
+
+    root.querySelectorAll('[data-pmode]').forEach(function (b) { b.addEventListener('click', function () { window.MSHOT_PRACTICE.setMode(b.getAttribute('data-pmode')); renderPractice(); }); });
+    var rv = document.getElementById('pm-rev'); if (rv) rv.addEventListener('click', function () { window.MSHOT_PRACTICE.toggleReveal(); renderPractice(); });
+    var nx = document.getElementById('pm-next'); if (nx) nx.addEventListener('click', function () { window.MSHOT_PRACTICE.nextItem(); renderPractice(); });
+    root.querySelectorAll('[data-pm-mcq]').forEach(function (b) { b.addEventListener('click', function () { window.MSHOT_PRACTICE.checkMcq(Number(b.getAttribute('data-pm-mcq'))); renderPractice(); }); });
+    root.querySelectorAll('[data-pm-tf]').forEach(function (b) { b.addEventListener('click', function () { window.MSHOT_PRACTICE.checkTf(b.getAttribute('data-pm-tf') === 'true'); renderPractice(); }); });
+    var fc = document.getElementById('pm-fill-chk'); if (fc) fc.addEventListener('click', function () { window.MSHOT_PRACTICE.checkFill(document.getElementById('pm-fill-inp').value); renderPractice(); });
+    root.querySelectorAll('[data-mset]').forEach(function (b) { b.addEventListener('click', function () { window.MSHOT_PRACTICE.switchMatchSet(Number(b.getAttribute('data-mset'))); renderPractice(); }); });
+    root.querySelectorAll('[data-mt]').forEach(function (b) { b.addEventListener('click', function () { window.MSHOT_PRACTICE.pickMatchTerm(b.getAttribute('data-mt')); renderPractice(); }); });
+    root.querySelectorAll('[data-md]').forEach(function (b) { b.addEventListener('click', function () { window.MSHOT_PRACTICE.pickMatchDef(b.getAttribute('data-md')); renderPractice(); }); });
+    var mv = document.getElementById('pm-mval'); if (mv) mv.addEventListener('click', function () { window.MSHOT_PRACTICE.validateMatch(); renderPractice(); });
+    var mr = document.getElementById('pm-mrst'); if (mr) mr.addEventListener('click', function () { window.MSHOT_PRACTICE.switchMatchSet(p.matchSetIdx); renderPractice(); });
+    root.querySelectorAll('[data-oset]').forEach(function (b) { b.addEventListener('click', function () { window.MSHOT_PRACTICE.switchOrderSet(Number(b.getAttribute('data-oset'))); renderPractice(); }); });
+    root.querySelectorAll('[data-oup]').forEach(function (b) { b.addEventListener('click', function () { window.MSHOT_PRACTICE.moveOrder(Number(b.getAttribute('data-oup')), -1); renderPractice(); }); });
+    root.querySelectorAll('[data-odn]').forEach(function (b) { b.addEventListener('click', function () { window.MSHOT_PRACTICE.moveOrder(Number(b.getAttribute('data-odn')), 1); renderPractice(); }); });
+    var oc = document.getElementById('pm-ochk'); if (oc) oc.addEventListener('click', function () { window.MSHOT_PRACTICE.checkOrder(); renderPractice(); });
+    var orst = document.getElementById('pm-orst'); if (orst) orst.addEventListener('click', function () { window.MSHOT_PRACTICE.switchOrderSet(p.orderSetIdx); renderPractice(); });
+    var rw = document.getElementById('pm-run-wrong');
+    if (rw) rw.addEventListener('click', function () {
+      var st = window.MSHOT_STORAGE.load();
+      var ids = Object.keys(st.mistakes || {}).filter(function (k) { return !st.mistakes[k].resolved && k.indexOf('qz-') === 0; });
+      if (ids.length) { window.MSHOT_QUIZ.start({ onlyIds: ids, count: ids.length }); go('quiz'); }
+      else toast('No quiz MCQs in mistakes yet.');
+    });
+  }
+
+  /* ==================== G. QUICK REVISION SHEET (p. 14) ==================== */
+  function renderRevision() {
+    var root = document.getElementById('page-revision');
+    if (!root) return;
+    var t = window.MSHOT_I18N.t, rev = window.MSHOT_DATA.revision;
+
+    root.innerHTML =
+      '<div class="page-head">' +
+        '<div class="eyebrow">PDF Page 14 · Quick Revision Sheet</div>' +
+        '<h1 class="page-title">' + t('revisionTitle') + '</h1>' +
+        '<p class="page-sub">' + t('revisionSub') + '</p>' +
+      '</div>' +
+
+      '<div class="card" style="margin-bottom:18px;">' +
+        '<h2 style="margin:0 0 10px;font-size:1.1rem;">Original Quick Revision Sheet (p. 14)</h2>' +
+        '<ul style="margin:0 0 14px;padding-inline-start:20px;">' + rev.sheetBullets.map(function (b) { return '<li style="margin-bottom:6px;">' + esc(b) + '</li>'; }).join('') + '</ul>' +
+        '<div class="qa-ans"><strong>Golden Rule:</strong> ' + esc(rev.goldenRuleEn) + '</div>' +
+        '<div class="qa-ar">' + esc(rev.goldenRuleAr) + '</div>' +
+      '</div>' +
+
+      '<div class="grid-2">' +
+        '<div class="card"><h3 style="margin:0 0 10px;">Important Historical Dates</h3>' + renderTable({ headers: ['Year', 'Milestone'], rows: rev.dates }) + '</div>' +
+        '<div class="card"><h3 style="margin:0 0 10px;">Key Inventors & Pioneers</h3>' + renderTable({ headers: ['Inventor', 'Contribution'], rows: rev.inventors }) +
+          '<h3 style="margin:18px 0 10px;">Frequently Confused Concepts</h3>' + renderTable({ headers: ['Pair', 'Difference'], rows: rev.confused }) + '</div>' +
+      '</div>' +
+      '<div class="card" style="margin-top:16px;"><h3 style="margin:0 0 10px;">Technical Abbreviations</h3>' + renderTable({ headers: ['Abbreviation', 'Meaning'], rows: rev.abbreviations }) + '</div>';
+  }
+
+  /* ==================== H. PROGRESS & PERFORMANCE ==================== */
+  function renderProgress() {
+    var root = document.getElementById('page-progress');
+    if (!root) return;
+    var t = window.MSHOT_I18N.t, lang = window.MSHOT_I18N.getLang(), st = window.MSHOT_STORAGE.load();
+    var totalQ = window.MSHOT_DATA.qa.length;
+    var und = (st.understood || []).length;
+    var ansC = 0, ansW = 0;
+    Object.keys(st.answeredIds || {}).forEach(function (k) { ansC += st.answeredIds[k].correct; ansW += st.answeredIds[k].wrong; });
+    var favs = (st.favorites || []).map(function (id) { return window.MSHOT_DATA.qa.find(function (q) { return q.id === id; }); }).filter(Boolean);
+    var revs = Object.keys(st.mistakes || {}).filter(function (k) { return !st.mistakes[k].resolved; });
+
+    root.innerHTML =
+      '<div class="page-head">' +
+        '<div class="eyebrow">M&lt;&gt;S · ' + t('navProgress') + '</div>' +
+        '<h1 class="page-title">' + t('progressTitle') + '</h1>' +
+        '<p class="page-sub">' + t('progressSub') + '</p>' +
+      '</div>' +
+
+      '<section class="stats-grid">' +
+        '<div class="stat-card"><div class="stat-k">' + t('totalQs') + '</div><div class="stat-v">' + totalQ + '</div></div>' +
+        '<div class="stat-card"><div class="stat-k">' + t('statCompleted') + '</div><div class="stat-v">' + und + '</div></div>' +
+        '<div class="stat-card"><div class="stat-k">' + t('correctAns') + '</div><div class="stat-v">' + ansC + '</div></div>' +
+        '<div class="stat-card"><div class="stat-k">' + t('wrongAns') + '</div><div class="stat-v">' + ansW + '</div></div>' +
+        '<div class="stat-card"><div class="stat-k">' + t('statOverall') + '</div><div class="stat-v">' + Math.round((und / totalQ) * 100) + '%</div></div>' +
+      '</section>' +
+
+      '<div class="grid-2">' +
+        '<div class="card"><h3 style="margin:0 0 12px;">' + t('mostDifficult') + '</h3>' +
+          window.MSHOT_DATA.sections.map(function (sec) {
+            var qs = window.MSHOT_DATA.qa.filter(function (q) { return q.section === sec.id; });
+            var d = qs.filter(function (q) { return (st.understood || []).indexOf(q.id) !== -1; }).length;
+            var pct = Math.round((d / qs.length) * 100);
+            return '<div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;font-size:0.86rem;font-weight:600;margin-bottom:4px;"><span>' + esc(lang === 'ar' ? sec.titleAr : sec.titleEn) + '</span><span>' + pct + '%</span></div>' +
+              '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%;"></div></div></div>';
+          }).join('') +
+          '<div style="margin-top:16px;"><button class="btn btn-danger btn-sm" id="btn-open-reset">' + t('resetProgress') + '</button></div>' +
+        '</div>' +
+
+        '<div class="card"><h3 style="margin:0 0 10px;">' + t('favQuestions') + ' (' + favs.length + ')</h3>' +
+          (favs.length ? favs.map(function (q) { return '<div class="card-beige" style="margin-bottom:8px;font-size:0.88rem;"><strong>' + esc(q.question_en) + '</strong></div>'; }).join('') : '<div class="empty-box">' + t('emptyHere') + '</div>') +
+          '<h3 style="margin:16px 0 10px;">' + t('needsRevQs') + ' (' + revs.length + ')</h3>' +
+          (revs.length ? revs.map(function (id) {
+            var item = window.MSHOT_DATA.quizBank.find(function (x) { return x.id === id; }) || window.MSHOT_DATA.tfBank.find(function (x) { return x.id === id; }) || window.MSHOT_DATA.fillBank.find(function (x) { return x.id === id; });
+            return item ? '<div class="card-beige" style="margin-bottom:8px;font-size:0.88rem;">' + esc(item.q) + '</div>' : '';
+          }).join('') : '<div class="empty-box">' + t('emptyHere') + '</div>') +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('btn-open-reset').addEventListener('click', function () {
+      document.getElementById('reset-modal').classList.add('open');
+    });
+  }
+
+  function renderCurrent() {
+    syncChrome();
+    if (ui.page === 'home') renderHome();
+    else if (ui.page === 'study') renderStudy();
+    else if (ui.page === 'understanding') renderUnderstanding();
+    else if (ui.page === 'flashcards') renderFlashcards();
+    else if (ui.page === 'quiz') renderQuiz();
+    else if (ui.page === 'practice') renderPractice();
+    else if (ui.page === 'revision') renderRevision();
+    else if (ui.page === 'progress') renderProgress();
+  }
+
+  function init() {
+    var st = window.MSHOT_STORAGE.load();
+    window.MSHOT_I18N.apply(st.lang || 'en');
+    document.documentElement.setAttribute('data-theme', st.theme || 'light');
+
+    ui.page = document.body.getAttribute('data-page') || 'home';
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('sec')) ui.section = params.get('sec');
+    else ui.section = st.lastSection || 's1';
+
+    document.querySelectorAll('[data-nav]').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        if (isSpa()) { e.preventDefault(); go(el.getAttribute('data-nav')); }
+      });
+    });
+
+    var mb = document.getElementById('btn-mobile');
+    if (mb) mb.addEventListener('click', function () { document.getElementById('mobile-drawer').classList.toggle('open'); });
+    document.getElementById('btn-lang').addEventListener('click', function () { window.MSHOT_I18N.toggle(); renderCurrent(); });
+    document.getElementById('btn-theme').addEventListener('click', function () {
+      var nxt = (window.MSHOT_STORAGE.load().theme || 'light') === 'light' ? 'dark' : 'light';
+      window.MSHOT_STORAGE.update(function (s) { s.theme = nxt; s.themeSaved = true; });
+      document.documentElement.setAttribute('data-theme', nxt);
+      syncChrome();
+    });
+
+    var rc = document.getElementById('reset-cancel');
+    if (rc) rc.addEventListener('click', function () { document.getElementById('reset-modal').classList.remove('open'); });
+    var rok = document.getElementById('reset-confirm');
+    if (rok) rok.addEventListener('click', function () {
+      document.getElementById('reset-modal').classList.remove('open');
+      window.MSHOT_STORAGE.resetAll();
+      window.MSHOT_QUIZ.clear();
+      renderCurrent();
+      toast('Progress reset.');
+    });
+
+    renderCurrent();
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  return { go: go, renderCurrent: renderCurrent };
+})();
+
+  </script>
+</body>
+</html>
